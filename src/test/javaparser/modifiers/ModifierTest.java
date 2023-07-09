@@ -34,44 +34,67 @@ public class ModifierTest {
     private ClassLoader loader = ClassLoaderSingleton.getInstance();   
     
     @Test
-    public void getModifier() throws ClassNotFoundException {
-        java.lang.Class javaClass;
-        Class clazz;
-        javaClass = PublicClass.class;         
+    public void getPublic() {
+        java.lang.Class javaClass = PublicClass.class;         
 
-        clazz = loader.loadClass("test.javaparser.modifiers.PublicClass");
+        Class clazz = loader.loadClass("test.javaparser.modifiers.PublicClass");
         equalsClass(loader,javaClass, clazz);
         assertEquals(clazz.getModifiers(), PUBLIC);
+    }
+    
+    @Test
+    public void getAbstract() {
+        java.lang.Class javaClass = AbstractClass.class;         
 
-        javaClass = AbstractClass.class;         
-
-        clazz = loader.loadClass("test.javaparser.modifiers.AbstractClass");
+        Class clazz = loader.loadClass("test.javaparser.modifiers.AbstractClass");
         equalsClass(loader,javaClass, clazz);
         assertEquals(clazz.getModifiers(), PUBLIC | ABSTRACT);
         
-        javaClass = FinalClass.class;         
+    }
+    
+    @Test
+    public void getFinal() {
+        java.lang.Class javaClass = FinalClass.class;         
 
-        clazz = loader.loadClass("test.javaparser.modifiers.FinalClass");
+        Class clazz = loader.loadClass("test.javaparser.modifiers.FinalClass");
         equalsClass(loader,javaClass, clazz);
         assertEquals(clazz.getModifiers(), PUBLIC | FINAL);
-        
-        javaClass = Interface.class;         
+    }
+    
+    @Test
+    public void getInterface() {
+        java.lang.Class javaClass = Interface.class;         
 
-        clazz = loader.loadClass("test.javaparser.modifiers.Interface");
+        Class clazz = loader.loadClass("test.javaparser.modifiers.Interface");
         equalsClass(loader,javaClass, clazz);
         assertEquals(clazz.getModifiers(), PUBLIC | INTERFACE);
-        
-        javaClass = StrictClass.class;         
+    }
     
-        clazz = loader.loadClass("test.javaparser.modifiers.StrictClass");
+    @Test
+    public void getStrict() {
+        java.lang.Class javaClass = StrictClass.class;         
+
+        Class clazz = loader.loadClass("test.javaparser.modifiers.StrictClass");
         equalsClass(loader,javaClass, clazz);     
         assertEquals(clazz.getModifiers(), PUBLIC | STRICT);
+    }
+    
+    @Test
+    public void getDefault() throws ClassNotFoundException {
+        java.lang.Class javaClass;
         
         javaClass = DefaultClass.class;         
 
-        clazz = loader.loadClass("test.javaparser.modifiers.DefaultClass");
+        Class clazz = loader.loadClass("test.javaparser.modifiers.DefaultClass");
         equalsClass(loader,javaClass, clazz); 
-        assertEquals(clazz.getModifiers(), 0);      
+        assertEquals(clazz.getModifiers(), 0);                  
     }
     
+    public static class A{}
+
+    protected static class B {}
+
+    static class C {}
+
+    private static class D {}
 }
