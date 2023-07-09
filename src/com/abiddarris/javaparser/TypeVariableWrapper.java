@@ -1,0 +1,66 @@
+/*******************************************************************************
+ * Copyright 2023 by Abiddarris
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
+
+package com.abiddarris.javaparser;
+
+import static com.abiddarris.javaparser.Wrappers.*;
+
+class TypeVariableWrapper<D extends GenericDeclaration> implements TypeVariable<D> {
+    
+    private D genericDeclaration;
+    private String name;
+    private Type[] types;
+
+    TypeVariableWrapper(ClassLoader loader, java.lang.reflect.TypeVariable<java.lang.Class> variable) {
+        genericDeclaration = (D) new ClassWrapper(loader,variable.getGenericDeclaration());
+        name = variable.getName();
+       
+        java.lang.reflect.Type[] types = variable.getBounds();
+        this.types = new Type[types.length];                     
+
+        for(int j = 0; j < types.length; j++) {
+            java.lang.reflect.Type type = types[j];
+            this.types[j] = wrapType(loader, type);                      
+        }
+        
+    }
+
+    
+    
+    @Override
+    public String getTypeName() {
+        return getName();
+    }
+
+    @Override
+    public Type[] getBounds() {
+        return types;
+    }
+
+    @Override
+    public D getGenericDeclaration() {
+        return genericDeclaration;
+    }
+    
+    @Override
+    public String getName() {
+        return name;
+    }
+    
+    
+    
+    
+}
