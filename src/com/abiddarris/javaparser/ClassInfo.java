@@ -23,11 +23,12 @@ import static com.abiddarris.javaparser.Modifier.ABSTRACT;
 import static com.abiddarris.javaparser.Modifier.ANNOTATION;
 import static com.abiddarris.javaparser.Modifier.FINAL;
 import static com.abiddarris.javaparser.Modifier.INTERFACE;
+import static com.abiddarris.javaparser.Modifier.PROTECTED;
+import static com.abiddarris.javaparser.Modifier.PRIVATE;
 import static com.abiddarris.javaparser.Modifier.PUBLIC;
 import static com.abiddarris.javaparser.Modifier.STATIC;
 import static com.abiddarris.javaparser.Modifier.STRICT;
-import static com.abiddarris.javaparser.Modifier.SYNCHRONIZED;
-
+//import static com.abiddarris.javaparser.Modifier.SYNCHRONIZED;
 
 class ClassInfo {
     
@@ -183,7 +184,8 @@ class ClassInfo {
         if(classInfo.contains("interface ")) modifiers |= INTERFACE;
         if(classInfo.contains("strictfp ")) modifiers |= STRICT;
         if(classInfo.contains("static ")) modifiers |= STATIC;    
-        if(parent != null) modifiers |= SYNCHRONIZED;
+        if(classInfo.contains("protected ")) modifiers |= PROTECTED;    
+        if(classInfo.contains("private ")) modifiers |= PRIVATE;    
         
         if(isAnnotation) modifiers |= ANNOTATION;
 

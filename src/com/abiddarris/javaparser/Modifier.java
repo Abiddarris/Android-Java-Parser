@@ -28,17 +28,17 @@ public class Modifier {
 //
 //    public static final int NATIVE = 256;
 //
-//    public static final int PRIVATE = 2;
-//
-//    public static final int PROTECTED = 4;
-//
+    public static final int PRIVATE = 2;
+
+    public static final int PROTECTED = 4;
+
     public static final int PUBLIC = 1;
     
     public static final int STATIC = 8;
-//
+
     public static final int STRICT = 2048;
-//
-    public static final int SYNCHRONIZED = 32;
+
+//    public static final int SYNCHRONIZED = 32;
 //
 //    public static final int TRANSIENT = 128;
 //
@@ -48,10 +48,14 @@ public class Modifier {
         return (mod & PUBLIC) != 0;
     }
 
-//    public static boolean isPrivate(int mod) {}
-//
-//    public static boolean isProtected(int mod) {}
-//
+    public static boolean isPrivate(int mod) {
+        return (mod & PRIVATE) != 0;
+    }
+
+    public static boolean isProtected(int mod) {
+        return (mod & PROTECTED) != 0;
+    }
+
     public static boolean isStatic(int mod) {
         return (mod & STATIC) != 0;
     }
@@ -60,9 +64,9 @@ public class Modifier {
         return (mod & FINAL) != 0;
     }
 
-    public static boolean isSynchronized(int mod) {
-        return (mod & SYNCHRONIZED) != 0;
-    }
+    //public static boolean isSynchronized(int mod) {
+  //      return (mod & SYNCHRONIZED) != 0;
+   // }
 //
 //    public static boolean isVolatile(int mod) {}
 //
@@ -86,10 +90,14 @@ public class Modifier {
         StringBuilder builder = new StringBuilder();
         if(isPublic(mod))
             builder.append("public ");
+        if(isProtected(mod))
+            builder.append("protected ");
+        if(isPrivate(mod))
+            builder.append("private ");    
         if(isStatic(mod)) 
             builder.append("static ");          
-        if(isSynchronized(mod)) 
-            builder.append("synchronized ");
+        //if(isSynchronized(mod)) 
+      //      builder.append("synchronized ");
         if(isStrict(mod))    
             builder.append("strictfp ");                
         if(isFinal(mod)) 
@@ -104,7 +112,8 @@ public class Modifier {
              .trim();
     }
 
-      //public static int classModifiers() {}
+    //public static int classModifiers() {
+    //}
 
 //    public static int interfaceModifiers() {}
 //

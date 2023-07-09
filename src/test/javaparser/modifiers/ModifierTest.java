@@ -24,7 +24,10 @@ import test.javaparser.ClassLoaderSingleton;
 import static com.abiddarris.javaparser.Modifier.ABSTRACT;
 import static com.abiddarris.javaparser.Modifier.FINAL;
 import static com.abiddarris.javaparser.Modifier.INTERFACE;
+import static com.abiddarris.javaparser.Modifier.PROTECTED;
+import static com.abiddarris.javaparser.Modifier.PRIVATE;
 import static com.abiddarris.javaparser.Modifier.PUBLIC;
+import static com.abiddarris.javaparser.Modifier.STATIC;
 import static com.abiddarris.javaparser.Modifier.STRICT;
 import static test.javaparser.ClassEqualizer.equalsClass;
 import static org.junit.Assert.assertEquals;
@@ -81,20 +84,44 @@ public class ModifierTest {
     
     @Test
     public void getDefault() throws ClassNotFoundException {
-        java.lang.Class javaClass;
-        
-        javaClass = DefaultClass.class;         
+        java.lang.Class javaClass = DefaultClass.class;         
 
         Class clazz = loader.loadClass("test.javaparser.modifiers.DefaultClass");
         equalsClass(loader,javaClass, clazz); 
         assertEquals(clazz.getModifiers(), 0);                  
     }
     
+    @Test
+    public void getStatic() throws ClassNotFoundException {
+        java.lang.Class javaClass = java.lang.Class.forName("test.javaparser.modifiers.ModifierTest$A");   
+
+        Class clazz = loader.loadEditableClass("test.javaparser.modifiers.ModifierTest$A");
+        equalsClass(loader,javaClass, clazz); 
+        assertEquals(PUBLIC | STATIC, clazz.getModifiers());         
+    }
+    
+    @Test
+    public void getProtected() throws ClassNotFoundException {
+        java.lang.Class javaClass = java.lang.Class.forName("test.javaparser.modifiers.ModifierTest$B");   
+
+        Class clazz = loader.loadEditableClass("test.javaparser.modifiers.ModifierTest$B");
+        equalsClass(loader,javaClass, clazz); 
+        assertEquals(STATIC | PROTECTED, clazz.getModifiers());         
+    }
+    
+    @Test
+    public void getPrivate() throws ClassNotFoundException {
+        java.lang.Class javaClass = java.lang.Class.forName("test.javaparser.modifiers.ModifierTest$C");   
+
+        Class clazz = loader.loadEditableClass("test.javaparser.modifiers.ModifierTest$C");
+        equalsClass(loader,javaClass, clazz); 
+        assertEquals(STATIC | PRIVATE, clazz.getModifiers());         
+    }
+    
     public static class A{}
 
     protected static class B {}
 
-    static class C {}
+    private static class C {}
 
-    private static class D {}
 }

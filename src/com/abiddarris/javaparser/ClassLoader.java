@@ -68,6 +68,12 @@ public class ClassLoader {
     }  
     
     public EditableClass loadEditableClass(String name) {
+        String innerClassPath = null;
+        int dollarSign = name.indexOf("$");
+        if(dollarSign != -1) {
+            innerClassPath = name.substring(dollarSign + 1);
+            name = name.substring(0,dollarSign);
+        }
         File src = new File(root,name.replace(".","/") + ".java");
         StringBuilder builder;
         try {
@@ -91,6 +97,10 @@ public class ClassLoader {
             Bracket bracket = parent.children.get(i);
             EditableClass clazz = new EditableClass(null,imports,this,builder.toString(),bracket);
             classes[i] = clazz;
+        }
+        
+        if(innerClassPath != null) {
+            return (EditableClass) classes[0].getInnerClass(innerClassPath);
         }
 
         return classes[0];       
