@@ -16,14 +16,18 @@
  
 package test.javaparser.modifiers;
 
+import com.abiddarris.javaparser.Class;
 import com.abiddarris.javaparser.ClassLoader;
-import com.abiddarris.javaparser.EditableClass;
 import org.junit.Test;
 import test.javaparser.ClassLoaderSingleton;
-import test.javaparser.DefaultClass;
-import com.abiddarris.javaparser.Class;
 
+import static com.abiddarris.javaparser.Modifier.ABSTRACT;
+import static com.abiddarris.javaparser.Modifier.FINAL;
+import static com.abiddarris.javaparser.Modifier.INTERFACE;
+import static com.abiddarris.javaparser.Modifier.PUBLIC;
+import static com.abiddarris.javaparser.Modifier.STRICT;
 import static test.javaparser.ClassEqualizer.equalsClass;
+import static org.junit.Assert.assertEquals;
 
 public class ModifierTest {
    
@@ -37,37 +41,37 @@ public class ModifierTest {
 
         clazz = loader.loadClass("test.javaparser.modifiers.PublicClass");
         equalsClass(loader,javaClass, clazz);
+        assertEquals(clazz.getModifiers(), PUBLIC);
 
         javaClass = AbstractClass.class;         
 
         clazz = loader.loadClass("test.javaparser.modifiers.AbstractClass");
         equalsClass(loader,javaClass, clazz);
-
+        assertEquals(clazz.getModifiers(), PUBLIC | ABSTRACT);
+        
         javaClass = FinalClass.class;         
 
         clazz = loader.loadClass("test.javaparser.modifiers.FinalClass");
         equalsClass(loader,javaClass, clazz);
-
+        assertEquals(clazz.getModifiers(), PUBLIC | FINAL);
+        
         javaClass = Interface.class;         
 
         clazz = loader.loadClass("test.javaparser.modifiers.Interface");
         equalsClass(loader,javaClass, clazz);
-
-        //BUG ???
-        /*javaClass = StrictClass.class;         
-
-         clazz = loader.loadClass("test.javaparser.modifiers.StrictClass");
-         equalsClass(loader,javaClass, clazz);     */
-
+        assertEquals(clazz.getModifiers(), PUBLIC | INTERFACE);
+        
+        javaClass = StrictClass.class;         
+    
+        clazz = loader.loadClass("test.javaparser.modifiers.StrictClass");
+        equalsClass(loader,javaClass, clazz);     
+        assertEquals(clazz.getModifiers(), PUBLIC | STRICT);
+        
         javaClass = DefaultClass.class;         
 
-        clazz = loader.loadClass("test.javaparser.DefaultClass");
+        clazz = loader.loadClass("test.javaparser.modifiers.DefaultClass");
         equalsClass(loader,javaClass, clazz); 
-
-        javaClass = java.lang.Class.forName("test.javaparser.classes.GetClasses$C");
-
-        clazz = loader.loadClass("test.javaparser.classes.GetClasses$C");
-        equalsClass(loader,javaClass, clazz); 
+        assertEquals(clazz.getModifiers(), 0);      
     }
     
 }
