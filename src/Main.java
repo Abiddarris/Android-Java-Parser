@@ -20,11 +20,13 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import test.javaparser.JavaParserTest;
+import com.abiddarris.javaparser.Modifier;
+import test.javaparser.modifiers.ModifierTest;
 
 public class Main {
     
     public static void main(String[] args) {
-        System.out.println(run(JavaParserTest.class));
+        System.out.println(run(JavaParserTest.class, ModifierTest.class));
     }
     
     public static final String run(Class... classes){
