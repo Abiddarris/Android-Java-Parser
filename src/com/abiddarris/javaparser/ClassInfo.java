@@ -70,7 +70,8 @@ class ClassInfo {
     Package getPackage() {
         if(_package == null) {
             String javaFileInfo = getJavaFileInfo();
-            _package = new PackageImpl(javaFileInfo.substring(javaFileInfo.indexOf("package ") + "package ".length(), javaFileInfo.indexOf(";")));              
+            int packageIndex = javaFileInfo.indexOf("package ");
+            _package = new PackageImpl(javaFileInfo.substring(packageIndex + "package ".length(), javaFileInfo.indexOf(";", packageIndex)));              
         }
         return _package;
     }
