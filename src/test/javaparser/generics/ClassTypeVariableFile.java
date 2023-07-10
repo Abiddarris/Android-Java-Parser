@@ -14,7 +14,8 @@
  * limitations under the License.
  ******************************************************************************/
 
-package test.javaparser;
+package test.javaparser.generics;
 
-public class SimpleGenericExtends extends ClassTypeVariable4File<Runnable>{
+public class ClassTypeVariableFile<T,U> {
+    
 }

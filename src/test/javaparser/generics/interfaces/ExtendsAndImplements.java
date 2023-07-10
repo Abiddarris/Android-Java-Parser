@@ -14,11 +14,9 @@
  * limitations under the License.
  ******************************************************************************/
 
-package test.javaparser;
+package test.javaparser.generics.interfaces;
 
-import test.javaparser.outsidepackage.OutsidePackage;
+import test.javaparser.generics.ClassFile;
 
-public class ClassTypeVariable2File<R, S extends R, T extends ClassTypeVariableFile<U,ClassTypeVariable3File<ClassFile,OutsidePackage>>, U extends OutsidePackage, V extends Runnable> {
-    /*extends ClassTypeVariable4File<U>*/ /*    , W extends ClassTypeVariable4File<?>*/
-    //ClassTypeVariable2File<R,T extends ClassTypeVariableFile<U,Runnable>>
+public class ExtendsAndImplements extends ClassFile implements MyInterface, MyInterface2{
 }

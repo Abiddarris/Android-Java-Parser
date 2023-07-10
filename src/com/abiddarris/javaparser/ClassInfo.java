@@ -83,8 +83,9 @@ class ClassInfo {
         String before = getJavaFileInfo();
 
         int lastSemicolon = before.lastIndexOf(";");
+        int lastCurlyBracketStart = before.lastIndexOf("{");      
         int lastCurlyBracketEnd = before.lastIndexOf("}");      
-        int max = Math.max(lastSemicolon,lastCurlyBracketEnd);
+        int max = Math.max(lastCurlyBracketStart, Math.max(lastSemicolon,lastCurlyBracketEnd));
 
         String classInfo = before.substring(max + 1);
 
@@ -205,7 +206,8 @@ class ClassInfo {
 
                 String info = code.substring(start,end).trim();
                 if(info.contains(" class ")) {
-                    Class clazz = new EditableClass(editableClass ,editableClass.imports, editableClass.getClassLoader(), code, child);                
+                    ClassLoader classLoader = editableClass.getClassLoader();
+                    Class clazz = new EditableClass(editableClass , editableClass.imports, classLoader, code, child);                
                     actualClasses.add(clazz);
                 }             
 

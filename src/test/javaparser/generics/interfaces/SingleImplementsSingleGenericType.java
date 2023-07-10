@@ -14,7 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package test.javaparser.genericinterfaces;
+package test.javaparser.generics.interfaces;
 
-public class MultiImplementsOnlySingleGenericClass implements MyInterface<Runnable>, MyInterface2{
+public class SingleImplementsSingleGenericType<T> implements MyInterface<T> {
 }

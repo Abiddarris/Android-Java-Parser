@@ -14,8 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 
- package test.javaparser.genericinterfaces;
+package test.javaparser.generics;    
 
-//TODO: CREATE THIS BUT WITH 2 EXTENDING, ONE WITH GENERIC AND OTHER JUST NORMAL 
-public class SingleImplementsSingleGenericClass implements MyInterface<Class> {
+public class ClassFile {
 }

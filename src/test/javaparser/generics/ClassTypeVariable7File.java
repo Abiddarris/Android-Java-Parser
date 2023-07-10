@@ -14,7 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package test.javaparser;
+package test.javaparser.generics;
 
-public class ClassTypeVariable4File<T> {
+public class ClassTypeVariable7File<N extends TwoGeneric<? super Runnable, ? super Thread>, O extends ClassTypeVariable4File<? super Object>, P extends TwoGeneric<? extends Runnable, ? extends Thread>, Q extends TwoGeneric<?,?>,  R extends ClassTypeVariable4File<? extends Object>> {
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package test.javaparser;
+package test.javaparser.generics.interfaces;
 
-public class SingularGenericMultipleNestedExtends<T> extends TwoGeneric<Class<Runnable>,Class<T>> {
+public class MultiImplementsOnlySingleGenericClass implements MyInterface<Runnable>, MyInterface2{
 }

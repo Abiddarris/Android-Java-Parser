@@ -14,7 +14,9 @@
  * limitations under the License.
  ******************************************************************************/
 
-package test.javaparser;
+package test.javaparser.generics.superclasses;
 
-public class SingularGenericNestedExtends extends ClassTypeVariable4File<Class<Runnable>>{
+import test.javaparser.generics.ClassTypeVariable4File;
+
+public class SimpleGenericExtends extends ClassTypeVariable4File<Runnable> {
 }

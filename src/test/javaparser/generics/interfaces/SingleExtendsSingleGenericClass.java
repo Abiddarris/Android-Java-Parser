@@ -14,9 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package test.javaparser.genericinterfaces;
+package test.javaparser.generics.interfaces;
 
-import test.javaparser.ClassFile;
-
-public class ExtendsAndImplements extends ClassFile implements MyInterface, MyInterface2{
+public interface SingleExtendsSingleGenericClass extends MyInterface<Class> {
 }

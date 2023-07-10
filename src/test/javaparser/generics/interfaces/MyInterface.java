@@ -14,8 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package test.javaparser;
-import test.javaparser.outsidepackage.OutsidePackage;
+package test.javaparser.generics.interfaces;
 
-public class SimpleExtends extends OutsidePackage {
+public interface MyInterface<T> {
 }

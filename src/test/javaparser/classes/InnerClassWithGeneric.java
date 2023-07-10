@@ -16,12 +16,11 @@
 
 package test.javaparser.classes;
 
-import test.javaparser.genericinterfaces.MyInterface;
+import test.javaparser.generics.interfaces.MyInterface;
 
-public class InnerClassWithGeneric<A> {
+public class InnerClassWithGeneric<A extends Runnable> {
     
-    public class Implementation implements MyInterface<A> {
-        
+    public class Implementation implements MyInterface<A> {      
     }
     
 }

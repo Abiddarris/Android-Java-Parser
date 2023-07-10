@@ -15,6 +15,7 @@
  ******************************************************************************/
 
 package test.javaparser;
+import test.javaparser.generics.ClassTypeVariableFile;
 
 public class GenericExtendingFile<T> extends ClassTypeVariableFile<Class<Runnable>,T> {
 }

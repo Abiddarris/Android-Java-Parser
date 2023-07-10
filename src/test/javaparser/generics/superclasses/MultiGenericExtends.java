@@ -14,7 +14,9 @@
  * limitations under the License.
  ******************************************************************************/
 
-package test.javaparser;
+package test.javaparser.generics.superclasses;
 
-public class ClassFile {
+import test.javaparser.generics.TwoGeneric;
+
+public class MultiGenericExtends extends TwoGeneric<Runnable,Class> {
 }

@@ -19,32 +19,16 @@ package test.javaparser;
 import com.abiddarris.javaparser.Class;
 import com.abiddarris.javaparser.ClassLoader;
 import com.abiddarris.javaparser.EditableClass;
-import com.abiddarris.javaparser.Modifier;
-import com.abiddarris.javaparser.Package;
-import com.abiddarris.javaparser.ParameterizedType;
-import com.abiddarris.javaparser.Type;
-import com.abiddarris.javaparser.TypeVariable;
-import com.abiddarris.javaparser.WildcardType;
-import java.io.File;
 import java.io.IOException;
 import org.junit.Test;
-import test.javaparser.classes.GetClasses;
-import test.javaparser.genericinterfaces.ExtendsAndImplements;
-import test.javaparser.genericinterfaces.MultiImplementsOnlySingleGenericClass;
-import test.javaparser.genericinterfaces.SingleExtendsSingleGenericClass;
-import test.javaparser.genericinterfaces.SingleImplementsSingleGenericClass;
-import test.javaparser.genericinterfaces.SingleImplementsSingleGenericType;
+import test.javaparser.generics.ClassFile;
 import test.javaparser.interfaces.ExtendingInterface;
 import test.javaparser.interfaces.MultipleExtendingInterface;
 import test.javaparser.interfaces.MultipleImplements;
 import test.javaparser.interfaces.SimpleImplements;
-import test.javaparser.modifiers.AbstractClass;
-import test.javaparser.modifiers.FinalClass;
-import test.javaparser.modifiers.Interface;
-import test.javaparser.modifiers.PublicClass;
 
-import static test.javaparser.ClassEqualizer.equalsClass;
 import static test.javaparser.PrintHelper.*;
+import static test.javaparser.ClassEqualizer.equalsClass;
 
 public class JavaParserTest {
     
@@ -82,67 +66,7 @@ public class JavaParserTest {
         Class clazz = loader.loadClass("test.javaparser.AnnotationFile");
         
         equalsClass(loader,javaClass, clazz);
-    }
-    
-    @Test
-    public void getTypeParameters() throws IOException {   
-        java.lang.Class javaClass = ClassTypeVariableFile.class;         
-        
-        Class clazz;
-        clazz= loader.loadClass("test.javaparser.ClassTypeVariableFile");
-        equalsClass(loader,javaClass, clazz);
-        
-        javaClass = ClassTypeVariable2File.class;         
-        clazz = loader.loadClass("test.javaparser.ClassTypeVariable2File");
-        equalsClass(loader,javaClass, clazz);
-        
-        javaClass = ClassTypeVariable4File.class;         
-        clazz = loader.loadClass("test.javaparser.ClassTypeVariable4File");
-        equalsClass(loader,javaClass, clazz);
-        
-        javaClass = ClassTypeVariable5File.class;         
-        clazz = loader.loadClass("test.javaparser.ClassTypeVariable5File");
-        equalsClass(loader,javaClass, clazz);
-        
-        
-        javaClass = ClassTypeVariable6File.class;         
-        clazz = loader.loadClass("test.javaparser.ClassTypeVariable6File");
-        equalsClass(loader,javaClass, clazz);
-        
-        javaClass = ClassTypeVariable7File.class;         
-        clazz = loader.loadClass("test.javaparser.ClassTypeVariable7File");
-        equalsClass(loader,javaClass, clazz);
-    }
-    
-    @Test
-    public void getTypeParameters_onWrapper() throws IOException, ClassNotFoundException {   
-        java.lang.Class javaClass = ClassTypeVariableFile.class;         
-
-        Class clazz;
-        clazz= loader.loadClassWrapper("test.javaparser.ClassTypeVariableFile");
-        equalsClass(loader,javaClass, clazz);
-
-        javaClass = ClassTypeVariable2File.class;         
-        clazz = loader.loadClassWrapper("test.javaparser.ClassTypeVariable2File");
-        equalsClass(loader,javaClass, clazz);
-
-        javaClass = ClassTypeVariable4File.class;         
-        clazz = loader.loadClassWrapper("test.javaparser.ClassTypeVariable4File");
-        equalsClass(loader,javaClass, clazz);
-
-        javaClass = ClassTypeVariable5File.class;         
-        clazz = loader.loadClassWrapper("test.javaparser.ClassTypeVariable5File");
-        equalsClass(loader,javaClass, clazz);
-
-
-        javaClass = ClassTypeVariable6File.class;         
-        clazz = loader.loadClassWrapper("test.javaparser.ClassTypeVariable6File");
-        equalsClass(loader,javaClass, clazz);
-
-        javaClass = ClassTypeVariable7File.class;         
-        clazz = loader.loadClassWrapper("test.javaparser.ClassTypeVariable7File");
-        equalsClass(loader,javaClass, clazz);
-    }
+    } 
     
     @Test
     public void getSuperClass() throws IOException {   
@@ -155,78 +79,7 @@ public class JavaParserTest {
         clazz = loader.loadClass("test.javaparser.ExtendingFile");
         equalsClass(loader,javaClass, clazz);
     }
-    
-
-    @Test
-    public void getGenericSuperClass() throws IOException, ClassNotFoundException {   
-        java.lang.Class javaClass;
-        Class clazz;
-        
-        javaClass = ClassFile.class;         
-        clazz = loader.loadClass("test.javaparser.ClassFile");
-        equalsClass(loader,javaClass, clazz);
-        
-        javaClass = SimpleExtends.class;     
-
-        clazz = loader.loadClass("test.javaparser.SimpleExtends");
-        equalsClass(loader,javaClass, clazz);
-        
-        javaClass = SimpleGenericExtends.class;     
-
-        clazz = loader.loadClass("test.javaparser.SimpleGenericExtends");
-        equalsClass(loader,javaClass, clazz);
-        
-        javaClass = SingularGenericNestedExtends.class;     
-
-        clazz = loader.loadClass("test.javaparser.SingularGenericNestedExtends");
-        equalsClass(loader,javaClass, clazz);
-        
-        javaClass = SingularGenericMultipleNestedExtends.class;     
-
-        clazz = loader.loadClass("test.javaparser.SingularGenericMultipleNestedExtends");
-        equalsClass(loader,javaClass, clazz);
-        
-        javaClass = MultiGenericExtends.class;     
-
-        clazz = loader.loadClass("test.javaparser.MultiGenericExtends");
-        equalsClass(loader,javaClass, clazz);
-    }
-    
-    @Test
-    public void getGenericSuperClass_onWrapper() throws IOException, ClassNotFoundException {   
-        java.lang.Class javaClass;
-        Class clazz;
-
-        javaClass = ClassFile.class;         
-        clazz = loader.loadClassWrapper("test.javaparser.ClassFile");
-        equalsClass(loader,javaClass, clazz);
-
-        javaClass = SimpleExtends.class;     
-
-        clazz = loader.loadClassWrapper("test.javaparser.SimpleExtends");
-        equalsClass(loader,javaClass, clazz);
-
-        javaClass = SimpleGenericExtends.class;     
-
-        clazz = loader.loadClassWrapper("test.javaparser.SimpleGenericExtends");
-        equalsClass(loader,javaClass, clazz);
-
-        javaClass = SingularGenericNestedExtends.class;     
-
-        clazz = loader.loadClassWrapper("test.javaparser.SingularGenericNestedExtends");
-        equalsClass(loader,javaClass, clazz);
-
-        javaClass = SingularGenericMultipleNestedExtends.class;     
-
-        clazz = loader.loadClassWrapper("test.javaparser.SingularGenericMultipleNestedExtends");
-        equalsClass(loader,javaClass, clazz);
-
-        javaClass = MultiGenericExtends.class;     
-
-        clazz = loader.loadClassWrapper("test.javaparser.MultiGenericExtends");
-        equalsClass(loader,javaClass, clazz);
-    }
-    
+   
     @Test
     public void getPackage() {
         java.lang.Class javaClass = JavaParserTest.class;         
@@ -279,60 +132,7 @@ public class JavaParserTest {
         equalsClass(loader,javaClass, clazz);        
     }
        
-    @Test
-    public void getGenericInterfaces() {            
-        java.lang.Class javaClass;
-        Class clazz;
-        javaClass = SingleImplementsSingleGenericClass.class;         
 
-        clazz = loader.loadClass("test.javaparser.genericinterfaces.SingleImplementsSingleGenericClass");
-        equalsClass(loader,javaClass, clazz);
-        
-        javaClass = MultiImplementsOnlySingleGenericClass.class;         
-
-        clazz = loader.loadClass("test.javaparser.genericinterfaces.MultiImplementsOnlySingleGenericClass");
-        equalsClass(loader,javaClass, clazz);
-        
-        javaClass = SingleImplementsSingleGenericType.class;         
-
-        clazz = loader.loadClass("test.javaparser.genericinterfaces.SingleImplementsSingleGenericType");
-        equalsClass(loader,javaClass, clazz);
-        
-        javaClass = SingleExtendsSingleGenericClass.class;         
-
-        clazz = loader.loadClass("test.javaparser.genericinterfaces.SingleExtendsSingleGenericClass");
-        equalsClass(loader,javaClass, clazz);
-    }
-    
-    @Test
-    public void getGenericInterfaces_onWrapper() throws ClassNotFoundException {            
-        java.lang.Class javaClass;
-        Class clazz;
-        javaClass = SingleImplementsSingleGenericClass.class;         
-
-        clazz = loader.loadClassWrapper("test.javaparser.genericinterfaces.SingleImplementsSingleGenericClass");
-        equalsClass(loader,javaClass, clazz);
-
-        javaClass = MultiImplementsOnlySingleGenericClass.class;         
-
-        clazz = loader.loadClassWrapper("test.javaparser.genericinterfaces.MultiImplementsOnlySingleGenericClass");
-        equalsClass(loader,javaClass, clazz);
-
-        javaClass = SingleImplementsSingleGenericType.class;         
-
-        clazz = loader.loadClassWrapper("test.javaparser.genericinterfaces.SingleImplementsSingleGenericType");
-        equalsClass(loader,javaClass, clazz);
-
-        javaClass = SingleExtendsSingleGenericClass.class;         
-
-        clazz = loader.loadClassWrapper("test.javaparser.genericinterfaces.SingleExtendsSingleGenericClass");
-        equalsClass(loader,javaClass, clazz);
-        
-        javaClass = ExtendsAndImplements.class;         
-
-        clazz = loader.loadClassWrapper("test.javaparser.genericinterfaces.ExtendsAndImplements");
-        equalsClass(loader,javaClass, clazz);
-    }
 
     @Test
     public void importTest() {
@@ -342,17 +142,7 @@ public class JavaParserTest {
         equalsClass(loader,javaClass, clazz);
     }
 
-    @Test
-    public void getClasses() {
-        java.lang.Class javaClass;
-        Class clazz;
-        javaClass = GetClasses.class;         
-        
-        clazz = loader.loadClass("test.javaparser.classes.GetClasses");
-        equalsClass(loader,javaClass, clazz);         
-    }
-    
-    
+
     @Test
     public void getClassName() throws ClassNotFoundException {
         java.lang.Class clazz = java.lang.Class.forName("test.javaparser.classes.GetClasses$E");

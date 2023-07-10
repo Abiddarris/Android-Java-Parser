@@ -14,8 +14,9 @@
  * limitations under the License.
  ******************************************************************************/
 
-package test.javaparser;
+package test.javaparser.generics;
 
-public class ClassTypeVariableFile<T,U> {
-    
+import test.javaparser.outsidepackage.OutsidePackage;
+
+public class ClassTypeVariable3File<T extends ClassFile, U extends OutsidePackage> extends ClassTypeVariableFile<T,Runnable>{
 }

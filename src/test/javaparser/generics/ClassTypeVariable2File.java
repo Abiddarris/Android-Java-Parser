@@ -14,7 +14,11 @@
  * limitations under the License.
  ******************************************************************************/
 
-package test.javaparser;
+package test.javaparser.generics;
 
-public class MultiGenericExtends extends TwoGeneric<Runnable,Class>{
+import test.javaparser.outsidepackage.OutsidePackage;
+
+public class ClassTypeVariable2File<R, S extends R, T extends ClassTypeVariableFile<U,ClassTypeVariable3File<ClassFile,OutsidePackage>>, U extends OutsidePackage, V extends Runnable> {
+    /*extends ClassTypeVariable4File<U>*/ /*    , W extends ClassTypeVariable4File<?>*/
+    //ClassTypeVariable2File<R,T extends ClassTypeVariableFile<U,Runnable>>
 }

@@ -14,7 +14,8 @@
  * limitations under the License.
  ******************************************************************************/
 
-package test.javaparser;
+package test.javaparser.generics.superclasses;
+import test.javaparser.outsidepackage.OutsidePackage;
 
-public class ClassTypeVariable6File<N extends ClassTypeVariable4File<? super Runnable>, O extends ClassTypeVariable4File<? super Object>, P extends ClassTypeVariable4File<? extends Runnable>, Q extends ClassTypeVariable4File<?>,  R extends ClassTypeVariable4File<? extends Object>> {
+public class SimpleExtends extends OutsidePackage {
 }

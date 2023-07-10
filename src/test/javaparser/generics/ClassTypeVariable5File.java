@@ -14,7 +14,11 @@
  * limitations under the License.
  ******************************************************************************/
 
-package test.javaparser.genericinterfaces;
+package test.javaparser.generics;
 
-public class SingleImplementsSingleGenericType<T> implements MyInterface<T> {
+import test.javaparser.outsidepackage.OutsidePackage;
+
+public class ClassTypeVariable5File<T extends ClassTypeVariableFile<U,ClassTypeVariable3File<ClassFile,U>>, U extends OutsidePackage> {
+    //, , S extends ClassTypeVariable4File<? extends Object>,
+    
 }

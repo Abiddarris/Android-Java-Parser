@@ -14,7 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package test.javaparser;
+package test.javaparser.generics;
 
-public class TwoGeneric<A,B> {
+public class ClassTypeVariable4File<T> {
 }

@@ -14,7 +14,9 @@
  * limitations under the License.
  ******************************************************************************/
 
-package test.javaparser.genericinterfaces;
+package test.javaparser.generics.superclasses;
 
-public interface MyInterface2 {
+import test.javaparser.generics.ClassTypeVariable4File;
+
+public class SingularGenericNestedExtends extends ClassTypeVariable4File<Class<Runnable>> {
 }

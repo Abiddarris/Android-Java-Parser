@@ -15,6 +15,7 @@
  ******************************************************************************/
 
 package test.javaparser;
+import test.javaparser.generics.ClassFile;
 
 public class ExtendingFile extends ClassFile {
 }
