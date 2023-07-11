@@ -29,12 +29,9 @@ public class EditableClass implements Class {
     List<Import> imports;
     private String name;   
     private String simpleName;
-    private String superClass;  
-    private Type genericSuperclass;
-    private Type[] genericInterfaces;
-    private TypeVariable[] typeParameters;
-     
-    EditableClass(Class parent, List<Import> imports, ClassLoader loader, String code, Bracket bracket) {          
+    private String superClass;    
+    
+    EditableClass(EditableClass parent, List<Import> imports, ClassLoader loader, String code, Bracket bracket) {          
         this.loader = loader;
         this.imports = imports;   
         
@@ -48,11 +45,8 @@ public class EditableClass implements Class {
         isAnnotation = classInfo.isAnnotation;
         isInterface = classInfo.isInterface;
         name = classInfo.name;
-        superClass = classInfo.superClass;
-        typeParameters = classInfo.typeParameters;
-        genericSuperclass = classInfo.genericSuperclassType;
-        interfaces = classInfo.interfaces;
-        genericInterfaces = classInfo.genericInterfaces;
+        superClass = classInfo.superClass;            
+        interfaces = classInfo.interfaces;    
         modifiers = classInfo.modifiers;
         simpleName = classInfo.simpleName;       
     }
@@ -82,6 +76,10 @@ public class EditableClass implements Class {
         return clazz;
     }    
 
+    ClassInfo getClassInfo() {
+        return classInfo;
+    }
+    
     @Override
     public boolean isInterface() {
         return isInterface;
@@ -104,7 +102,7 @@ public class EditableClass implements Class {
     
     @Override
     public synchronized TypeVariable<Class>[] getTypeParameters() {
-        return typeParameters;
+        return classInfo.getTypeParameters();
     }
 
     @Override
@@ -125,6 +123,7 @@ public class EditableClass implements Class {
 
     @Override
     public Type getGenericSuperclass() {
+        Type genericSuperclass = classInfo.getGenericSuperclass();
         if(genericSuperclass == null)
             return getSuperclass();
         return genericSuperclass;
@@ -142,7 +141,7 @@ public class EditableClass implements Class {
 
     @Override
     public Type[] getGenericInterfaces() {
-        return genericInterfaces;
+        return classInfo.getGenericInterfaces();
     }
 
     @Override

@@ -25,12 +25,13 @@ import test.javaparser.generics.interfaces.GenericInterfaceTest;
 import test.javaparser.generics.superclasses.GenericSuperclassTest;
 import test.javaparser.modifiers.ModifierTest;
 import test.javaparser.generics.GenericTest;
+import java.util.Scanner;
 
 public class Main {
     
-    public static void main(String[] args) {        
+    public static void main(String[] args) {             
         System.out.println(run(JavaParserTest.class, ModifierTest.class, 
-            GetClasses.class, GenericInterfaceTest.class, GenericSuperclassTest.class,
+            GetClasses.class, GenericInterfaceTest.class, GenericSuperclassTest.class, 
             GenericTest.class));
     }
     
@@ -84,7 +85,8 @@ public class Main {
                 .append(trace);
         }
 
-        return builder.toString();
+        return builder.toString();              
     }
+    
     
 }

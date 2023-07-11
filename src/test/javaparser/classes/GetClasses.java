@@ -43,14 +43,6 @@ public class GetClasses {
         equalsClass(loader,javaClass, clazz);        
     }
     
-    @Test
-    public void loadInnerClassWithParentGeneric() throws ClassNotFoundException {
-        java.lang.Class javaClass = java.lang.Class.forName("test.javaparser.classes.InnerClassWithGeneric");    
-
-        Class clazz = loader.loadEditableClass("test.javaparser.classes.InnerClassWithGeneric");
-        equalsClass(loader,javaClass, clazz);      
-    }
-    
     public class A {}
     
     public static class B{}

@@ -14,13 +14,16 @@
  * limitations under the License.
  ******************************************************************************/
 
-package test.javaparser.classes;
+package test.javaparser.generics.superclasses;
 
 import test.javaparser.generics.interfaces.MyInterface;
+import test.javaparser.generics.ClassTypeVariable4File;
 
 public class InnerClassWithGeneric<A extends Runnable> {
     
-    public class Implementation implements MyInterface<A> {      
+    public class ExtendsClass extends ClassTypeVariable4File<A> {      
     }
     
+    public class ExtendsClassWithItsOwnGenericDeclaration<A extends Runnable> extends ClassTypeVariable4File<A> {      
+    }
 }

@@ -28,18 +28,29 @@ import static com.abiddarris.javaparser.Modifier.PRIVATE;
 import static com.abiddarris.javaparser.Modifier.PUBLIC;
 import static com.abiddarris.javaparser.Modifier.STATIC;
 import static com.abiddarris.javaparser.Modifier.STRICT;
+import java.util.Arrays;
+import java.util.SortedMap;
+import java.util.Collections;
 //import static com.abiddarris.javaparser.Modifier.SYNCHRONIZED;
 
 class ClassInfo {
     
-    private Class[] actualClasses;
     private Bracket bracket;
+    private EditableClass parent;
+    private Class[] actualClasses;    
     private Class[] classes;
     private EditableClass editableClass;
     private List<Generic> generics = new ArrayList<>();   
     private Package _package;
+    private String cleanJavaInfo;
     private String code;
+    private String extendInfo;
     private String javaFileInfo;
+    private String[] implementsInfos;
+    private Type genericSuperclassType;
+    private Type[] genericInterfaces;
+    private TypeVariable[] genericDeclarations;
+    private TypeVariable[] typeParameters;
     
     boolean isAnnotation;
     boolean isInterface;    
@@ -48,16 +59,12 @@ class ClassInfo {
     String name;
     String simpleName;
     String superClass;      
-    Type genericSuperclassType;
-    Type[] genericInterfaces = new Type[0];
-    TypeVariable[] typeParameters = new TypeVariable[0]; 
-
-    ClassInfo(Class parent, String code, Bracket bracket, EditableClass editableClass) {    
+    
+    ClassInfo(EditableClass parent, String code, Bracket bracket, EditableClass editableClass) {    
+        this.parent = parent;
         this.editableClass = editableClass;
         this.code = code;
-        this.bracket = bracket;
-        
-        
+        this.bracket = bracket;            
     }
     
     private String getJavaFileInfo() {
@@ -68,6 +75,10 @@ class ClassInfo {
         return javaFileInfo;
     }
     
+    private String getCleanJavaInfo() {
+        return cleanJavaInfo;
+    }
+    
     Package getPackage() {
         if(_package == null) {
             String javaFileInfo = getJavaFileInfo();
@@ -76,8 +87,6 @@ class ClassInfo {
         }
         return _package;
     }
-    
-    
     
     void load2(Class parent, Bracket bracket, String code) {
         String before = getJavaFileInfo();
@@ -100,9 +109,7 @@ class ClassInfo {
         }
 
         classInfo = encodeNestedType(classInfo,generics);
-
-        String extendInfo = null;
-        String[] implementsInfos = null;
+     
         int superClassStart = classInfo.indexOf(" extends ");
         if(superClassStart != -1) {                    
             int superClassEnd = classInfo.indexOf(" ", superClassStart + " extends ".length());
@@ -141,41 +148,8 @@ class ClassInfo {
             }
         }
 
-        simpleName = getClassName(classInfo);
-        this.typeParameters = getGenericDeclaration(classInfo);
-        if(extendInfo != null && !isInterface) {                      
-            extendInfo = decodeNestedType(generics,extendInfo)
-                .replace("<","[")
-                .replace(">","]");
-
-            Type[] types = getGeneric(typeParameters,extendInfo);
-            Type rawType = resolveTypeByName(typeParameters,superClass);
-            if(types.length != 0) {                           
-                genericSuperclassType = new ParameterizedTypeImpl(rawType,types);
-            }
-        }
-
-        if(implementsInfos != null){
-            genericInterfaces = new Type[implementsInfos.length];
-            for(int i = 0; i < implementsInfos.length; i++) {
-                String implementsInfo = implementsInfos[i];
-                implementsInfo = decodeNestedType(generics,implementsInfo)
-                    .replace("<","[")
-                    .replace(">","]");
-
-                Type[] types = getGeneric(typeParameters,implementsInfo);
-                Type rawType = resolveTypeByName(typeParameters,interfaces[i].getName());
-                if(types.length != 0 && isInterface) {      
-                    genericInterfaces = new Type[0];
-                    break;
-                } else if(types.length != 0) {
-                    genericInterfaces[i] = new ParameterizedTypeImpl(rawType,types);
-                } else {
-                    genericInterfaces[i] = interfaces[i];
-                }
-            }
-
-        }
+        cleanJavaInfo = classInfo;
+        simpleName = getClassName(classInfo);   
 
         classInfo = classInfo.replace(simpleName,"");
 
@@ -231,7 +205,140 @@ class ClassInfo {
         }
         return classes;
     }
+    
+    TypeVariable[] getTypeParameters() {
+        if(typeParameters != null) return typeParameters;     
 
+        String classInfo = getCleanJavaInfo();
+        int genericStart = classInfo.indexOf("[");
+        int genericEnd = classInfo.indexOf("]");
+        if(genericStart == -1 || genericEnd == -1) {
+            return typeParameters = new TypeVariable[0];
+        } 
+        
+        String data = getDecodedNestedType(generics,classInfo);             
+        List<Generic> generics = new ArrayList<>();
+        data = encodeNestedType(data,generics);    
+
+        String[] genericDeclarations = data.split(",");     
+
+        TypeVariable[] typeParameters = new TypeVariable[genericDeclarations.length];
+        String[] typesString = new String[genericDeclarations.length];
+
+        for(int i = 0; i < genericDeclarations.length; i++) {
+            String genericDeclaration = decodeNestedType(generics,genericDeclarations[i])
+                .replace("<","[")
+                .replace(">","]");
+            String typeWithGenericDeclaration, name;          
+            int startExtends = genericDeclaration.indexOf(" extends ");
+            if(startExtends == -1) {
+                name = genericDeclaration.trim();
+                typeWithGenericDeclaration = "java.lang.Object";         
+            } else {
+                name = genericDeclaration.substring(0,startExtends + 1)
+                    .trim();
+                typeWithGenericDeclaration = genericDeclaration.substring(startExtends + " extends ".length());               
+            }
+
+            TypeVariable<Class> variable = new TypeVariableImpl<Class>(
+                editableClass,name);
+            typesString[i] = typeWithGenericDeclaration;
+            typeParameters[i] = variable;
+        }
+
+        for(int i = 0; i < typesString.length; i++) {
+            String typeNameWithGenericDeclaration = typesString[i];       
+            String typeName = getClassName(typeNameWithGenericDeclaration);
+
+            Type type;
+            Type[] types = getGeneric(typeParameters,typeNameWithGenericDeclaration);
+            type = resolveTypeByName(typeParameters,typeName);
+            if(types.length != 0) {                           
+                type = new ParameterizedTypeImpl(type,types);
+            }
+
+            ((TypeVariableImpl)typeParameters[i]).setBounds(
+                new Type[]{type});
+        }
+        
+        return this.typeParameters = typeParameters;
+    }
+
+    TypeVariable[] getGenericDeclaration() {
+        if(genericDeclarations != null) return genericDeclarations;
+        TypeVariable[] typeParameters = getTypeParameters();
+        
+        if(typeParameters.length == 0 && parent != null) return genericDeclarations = parent.getClassInfo()
+            .getGenericDeclaration();
+        
+        if(parent != null) {
+            List<TypeVariable> typeVariables = new ArrayList<>();
+            for(TypeVariable typeVariable :  typeParameters) {
+                typeVariables.add(typeVariable);
+            }
+
+            for(TypeVariable typeVariable : parent.getClassInfo().getGenericDeclaration()) {
+                boolean found = false;
+                for(TypeVariable variable : typeVariables) {
+                    if(typeVariable.getName().equals(variable.getName())) {
+                        found = true;
+                        break;
+                    }                    
+                }
+                if(!found) {
+                    typeVariables.add(typeVariable);
+                }
+            }
+            return this.genericDeclarations = typeVariables.toArray(new TypeVariable[0]);
+        }
+          
+        return this.genericDeclarations = typeParameters;
+    }
+    
+    Type getGenericSuperclass() {      
+        if(extendInfo != null && !isInterface) {       
+            if(genericSuperclassType != null) return genericSuperclassType;
+            
+            extendInfo = decodeNestedType(generics,extendInfo)
+                .replace("<","[")
+                .replace(">","]");
+
+            TypeVariable[] genericDeclaration = getGenericDeclaration();
+            Type[] types = getGeneric(genericDeclaration, extendInfo);
+            Type rawType = resolveTypeByName(getGenericDeclaration(),superClass);
+            if(types.length != 0) {                           
+                return genericSuperclassType = new ParameterizedTypeImpl(rawType,types);
+            }
+        }
+        return null;
+    }
+    
+    Type[] getGenericInterfaces() {
+        if(genericInterfaces != null) return genericInterfaces;
+        
+        if(implementsInfos != null){
+            genericInterfaces = new Type[implementsInfos.length];
+            for(int i = 0; i < implementsInfos.length; i++) {
+                String implementsInfo = implementsInfos[i];
+                implementsInfo = decodeNestedType(generics,implementsInfo)
+                    .replace("<","[")
+                    .replace(">","]");
+
+                Type[] types = getGeneric(getGenericDeclaration(),implementsInfo);
+                Type rawType = resolveTypeByName(getGenericDeclaration(),interfaces[i].getName());
+                if(types.length != 0 && isInterface) {      
+                    genericInterfaces = new Type[0];
+                    break;
+                } else if(types.length != 0) {
+                    genericInterfaces[i] = new ParameterizedTypeImpl(rawType,types);
+                } else {
+                    genericInterfaces[i] = interfaces[i];
+                }
+            }
+        }
+        return genericInterfaces == null ? genericInterfaces = new Type[0]: genericInterfaces;
+    }
+    
     private String encodeNestedType(String classInfo, List<Generic> generics) {
         StringBuilder builder = new StringBuilder(classInfo);
         Bracket parent = Bracket.parse(classInfo, "<", ">");
@@ -309,61 +416,7 @@ class ClassInfo {
         return generic;
     }
 
-    private TypeVariable[] getGenericDeclaration(String classInfo) {
-        int genericStart = classInfo.indexOf("[");
-        int genericEnd = classInfo.indexOf("]");
-        if(genericStart == -1 || genericEnd == -1) {
-            return new TypeVariable[0];
-        }
-
-        String data = getDecodedNestedType(generics,classInfo);             
-        List<Generic> generics = new ArrayList<>();
-        data = encodeNestedType(data,generics);    
-
-        String[] genericDeclarations = data.split(",");     
-
-        TypeVariable[] typeParameters = new TypeVariable[genericDeclarations.length];
-        String[] typesString = new String[genericDeclarations.length];
-
-        for(int i = 0; i < genericDeclarations.length; i++) {
-            String genericDeclaration = decodeNestedType(generics,genericDeclarations[i])
-                .replace("<","[")
-                .replace(">","]");
-            String typeWithGenericDeclaration, name;          
-            int startExtends = genericDeclaration.indexOf(" extends ");
-            if(startExtends == -1) {
-                name = genericDeclaration.trim();
-                typeWithGenericDeclaration = "java.lang.Object";         
-            } else {
-                name = genericDeclaration.substring(0,startExtends + 1)
-                    .trim();
-                typeWithGenericDeclaration = genericDeclaration.substring(startExtends + " extends ".length());               
-            }
-
-            TypeVariable<Class> variable = new TypeVariableImpl<Class>(
-                editableClass,name);
-            typesString[i] = typeWithGenericDeclaration;
-            typeParameters[i] = variable;
-        }
-
-        for(int i = 0; i < typesString.length; i++) {
-            String typeNameWithGenericDeclaration = typesString[i];       
-            String typeName = getClassName(typeNameWithGenericDeclaration);
-
-            Type type;
-            Type[] types = getGeneric(typeParameters,typeNameWithGenericDeclaration);
-            type = resolveTypeByName(typeParameters,typeName);
-            if(types.length != 0) {                           
-                type = new ParameterizedTypeImpl(type,types);
-            }
-
-            ((TypeVariableImpl)typeParameters[i]).setBounds(
-                new Type[]{type});
-        }
-
-        return typeParameters;
-    }
-
+    
     private Type resolveTypeByName(TypeVariable[] typeParameters, String typeName) {        
         for(TypeVariable variable : typeParameters) {
             if(variable == null)

@@ -16,14 +16,14 @@
 
 package test.javaparser.generics.superclasses;
 
+import com.abiddarris.javaparser.Class;
+import com.abiddarris.javaparser.ClassLoader;
 import java.io.IOException;
 import org.junit.Test;
 import test.javaparser.ClassLoaderSingleton;
 import test.javaparser.generics.ClassFile;
 
 import static test.javaparser.ClassEqualizer.equalsClass;
-import com.abiddarris.javaparser.ClassLoader;
-import com.abiddarris.javaparser.Class;
 
 
 public class GenericSuperclassTest {
@@ -36,32 +36,32 @@ public class GenericSuperclassTest {
         Class clazz;
 
         javaClass = ClassFile.class;         
-        clazz = loader.loadClass("test.javaparser.ClassFile");
+        clazz = loader.loadClass("test.javaparser.generics.ClassFile");
         equalsClass(loader,javaClass, clazz);
 
         javaClass = SimpleExtends.class;     
 
-        clazz = loader.loadClass("test.javaparser.SimpleExtends");
+        clazz = loader.loadClass("test.javaparser.generics.superclasses.SimpleExtends");
         equalsClass(loader,javaClass, clazz);
 
         javaClass = SimpleGenericExtends.class;     
 
-        clazz = loader.loadClass("test.javaparser.SimpleGenericExtends");
+        clazz = loader.loadClass("test.javaparser.generics.superclasses.SimpleGenericExtends");
         equalsClass(loader,javaClass, clazz);
 
         javaClass = SingularGenericNestedExtends.class;     
 
-        clazz = loader.loadClass("test.javaparser.SingularGenericNestedExtends");
+        clazz = loader.loadClass("test.javaparser.generics.superclasses.SingularGenericNestedExtends");
         equalsClass(loader,javaClass, clazz);
 
         javaClass = SingularGenericMultipleNestedExtends.class;     
 
-        clazz = loader.loadClass("test.javaparser.SingularGenericMultipleNestedExtends");
+        clazz = loader.loadClass("test.javaparser.generics.superclasses.SingularGenericMultipleNestedExtends");
         equalsClass(loader,javaClass, clazz);
 
         javaClass = MultiGenericExtends.class;     
 
-        clazz = loader.loadClass("test.javaparser.MultiGenericExtends");
+        clazz = loader.loadClass("test.javaparser.generics.superclasses.MultiGenericExtends");
         equalsClass(loader,javaClass, clazz);
     }
 
@@ -71,33 +71,46 @@ public class GenericSuperclassTest {
         Class clazz;
 
         javaClass = ClassFile.class;         
-        clazz = loader.loadClassWrapper("test.javaparser.ClassFile");
+        clazz = loader.loadClassWrapper("test.javaparser.generics.ClassFile");
         equalsClass(loader,javaClass, clazz);
 
         javaClass = SimpleExtends.class;     
 
-        clazz = loader.loadClassWrapper("test.javaparser.SimpleExtends");
+        clazz = loader.loadClassWrapper("test.javaparser.generics.superclasses.SimpleExtends");
         equalsClass(loader,javaClass, clazz);
 
         javaClass = SimpleGenericExtends.class;     
 
-        clazz = loader.loadClassWrapper("test.javaparser.SimpleGenericExtends");
+        clazz = loader.loadClassWrapper("test.javaparser.generics.superclasses.SimpleGenericExtends");
         equalsClass(loader,javaClass, clazz);
 
         javaClass = SingularGenericNestedExtends.class;     
 
-        clazz = loader.loadClassWrapper("test.javaparser.SingularGenericNestedExtends");
+        clazz = loader.loadClassWrapper("test.javaparser.generics.superclasses.SingularGenericNestedExtends");
         equalsClass(loader,javaClass, clazz);
 
         javaClass = SingularGenericMultipleNestedExtends.class;     
 
-        clazz = loader.loadClassWrapper("test.javaparser.SingularGenericMultipleNestedExtends");
+        clazz = loader.loadClassWrapper("test.javaparser.generics.superclasses.SingularGenericMultipleNestedExtends");
         equalsClass(loader,javaClass, clazz);
 
         javaClass = MultiGenericExtends.class;     
 
-        clazz = loader.loadClassWrapper("test.javaparser.MultiGenericExtends");
+        clazz = loader.loadClassWrapper("test.javaparser.generics.superclasses.MultiGenericExtends");
         equalsClass(loader,javaClass, clazz);
+    }   
+
+    @Test
+    public void loadInnerClassWithParentGeneric() throws ClassNotFoundException {
+        java.lang.Class javaClass = InnerClassWithGeneric.ExtendsClass.class; 
+        Class clazz = loader.loadEditableClass("test.javaparser.generics.superclasses.InnerClassWithGeneric$ExtendsClass");
+        equalsClass(loader,javaClass, clazz);      
     }
     
+    @Test
+    public void loadInnerClassWithItsOwnGenericDeclaration() throws ClassNotFoundException {
+        java.lang.Class javaClass = InnerClassWithGeneric.ExtendsClassWithItsOwnGenericDeclaration.class; 
+        Class clazz = loader.loadEditableClass("test.javaparser.generics.superclasses.InnerClassWithGeneric$ExtendsClassWithItsOwnGenericDeclaration");
+        equalsClass(loader,javaClass, clazz);      
+    }
 }
