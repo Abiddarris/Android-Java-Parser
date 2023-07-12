@@ -133,14 +133,26 @@ public class ClassLoader {
             .replace("/",".");
         if(name.startsWith(".")) name = name.substring(1);
         
+        List<String> classPaths = new ArrayList<>();
+        
         EditablePackage editablePackage = new EditablePackage(name);
         editablePackages.add(editablePackage);
+        
         File[] files = packageFile.listFiles();         
         for(File file : files) {
             if(file.isDirectory()) {
                 createPackages(editablePackages,file);
+            } else {
+                String classPath = file.getPath()
+                               .replace(".java","")
+                               .replace(root.getPath(),"")
+                               .replace("/",".");
+                               
+                if(classPath.startsWith(".")) classPath = classPath.substring(1);
+                classPaths.add(classPath);
             }
         }
+        editablePackage.setClassPaths(this,classPaths.toArray(new String[0]));
     }
     
     private List<Import> handleImports(String importStr) {

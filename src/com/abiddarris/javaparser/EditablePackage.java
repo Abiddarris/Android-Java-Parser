@@ -18,7 +18,10 @@ package com.abiddarris.javaparser;
 
 public class EditablePackage extends Package {
     
+    private ClassLoader loader;
+    private EditableClass[] classes;
     private String name;
+    private String[] paths;
 
     public EditablePackage(String name) {
         this.name = name;
@@ -29,4 +32,18 @@ public class EditablePackage extends Package {
         return name;
     }
 
+    public EditableClass[] getClasses() {
+        if(classes == null) {
+            classes = new EditableClass[paths.length];
+            for(int i = 0; i < classes.length; i++) {
+                classes[i] = loader.loadEditableClass(paths[i]);
+            }
+        }
+        return classes;
+    }
+    
+    void setClassPaths(ClassLoader loader, String[] paths) {
+        this.loader = loader;
+        this.paths = paths;
+    }
 }
