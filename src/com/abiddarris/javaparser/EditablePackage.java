@@ -16,11 +16,11 @@
 
 package com.abiddarris.javaparser;
 
-class PackageImpl extends Package {
+public class EditablePackage extends Package {
     
     private String name;
 
-    public PackageImpl(String name) {
+    public EditablePackage(String name) {
         this.name = name;
     }
 

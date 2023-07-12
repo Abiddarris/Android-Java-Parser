@@ -26,13 +26,14 @@ import test.javaparser.generics.superclasses.GenericSuperclassTest;
 import test.javaparser.modifiers.ModifierTest;
 import test.javaparser.generics.GenericTest;
 import java.util.Scanner;
+import test.javaparser.packages.PackageTest;
 
 public class Main {
     
     public static void main(String[] args) {                
         System.out.println(run(JavaParserTest.class, ModifierTest.class, 
             DeclaredClassesTest.class, GenericInterfaceTest.class, GenericSuperclassTest.class, 
-            GenericTest.class));
+            GenericTest.class, PackageTest.class));
     }
     
     public static final String run(Class... classes){

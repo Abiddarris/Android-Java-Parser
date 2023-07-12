@@ -82,7 +82,7 @@ class ClassInfo {
         if(_package == null) {
             String javaFileInfo = getJavaFileInfo();
             int packageIndex = javaFileInfo.indexOf("package ");
-            _package = new PackageImpl(javaFileInfo.substring(packageIndex + "package ".length(), javaFileInfo.indexOf(";", packageIndex)));              
+            _package = new EditablePackage(javaFileInfo.substring(packageIndex + "package ".length(), javaFileInfo.indexOf(";", packageIndex)));              
         }
         return _package;
     }

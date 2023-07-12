@@ -22,7 +22,6 @@ import org.junit.Test;
 import test.javaparser.ClassLoaderSingleton;
 
 import static test.javaparser.ClassEqualizer.equalsClass;
-import com.abiddarris.javaparser.TypeVariableImpl;
 
 public class DeclaredClassesTest {
     
@@ -46,8 +45,10 @@ public class DeclaredClassesTest {
     
     @Test
     public void a() throws ClassNotFoundException {      
-        //java.lang.Class javaClass = java.lang.Class.forName("test.javaparser.classes.FirstClass.NonPublicClassHeader");   
-        System.out.println(NonPublicClassHeader.class);
+  
+        java.lang.Class javaClass = java.lang.Class.forName("test.javaparser.classes.NonPublicClassHeader");
+        System.out.println(javaClass);
+        System.out.println(javaClass.getDeclaredMethods().length);
     }
       
 }

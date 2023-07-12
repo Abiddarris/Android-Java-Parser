@@ -34,6 +34,7 @@ import java.util.Comparator;
 public class ClassLoader {
        
     private File root;
+    private EditablePackage[] packages;
 
     public ClassLoader(File root) {
         this.root = root;
@@ -117,6 +118,31 @@ public class ClassLoader {
         return clazz;    
     }
 
+    public EditablePackage[] getPackages() {
+        if(packages == null) {
+            List<EditablePackage> editablePackages = new ArrayList<>();
+            createPackages(editablePackages,root);   
+            packages = editablePackages.toArray(new EditablePackage[0]);
+        }
+        return packages;
+    }
+
+    private void createPackages(List<EditablePackage> editablePackages, File packageFile) {
+        String name = packageFile.getPath()
+            .replace(root.getPath(),"")
+            .replace("/",".");
+        if(name.startsWith(".")) name = name.substring(1);
+        
+        EditablePackage editablePackage = new EditablePackage(name);
+        editablePackages.add(editablePackage);
+        File[] files = packageFile.listFiles();         
+        for(File file : files) {
+            if(file.isDirectory()) {
+                createPackages(editablePackages,file);
+            }
+        }
+    }
+    
     private List<Import> handleImports(String importStr) {
         List<Import> imports = new ArrayList<>();
         int importStart = 0;
