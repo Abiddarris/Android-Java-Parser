@@ -41,27 +41,16 @@ public class ClassLoader {
     }
     
     public Class loadClass(String name) {
-        String innerClassPath = null;
-        int dollarSign = name.indexOf("$");
-        if(dollarSign != -1) {
-            innerClassPath = name.substring(dollarSign + 1);
-            name = name.substring(0,dollarSign);
+        try {
+            return loadEditableClass(name);
+        } catch (Exception e) {           
         }
-        File src = new File(root,name.replace(".","/") + ".java");
-        if(!src.exists()) {           
-            try {
-                return loadClassWrapper(name);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        } 
         
-        
-        EditableClass editableClass = loadEditableClass(name);      
-        if(innerClassPath != null) {
-            return editableClass.getInnerClass(innerClassPath);
+        try {
+            return loadClassWrapper(name);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
-        return editableClass;
     }   
 
     public ClassWrapper loadClassWrapper(String name) throws ClassNotFoundException {
@@ -113,8 +102,7 @@ public class ClassLoader {
         if(innerClassPath != null) {
             return (EditableClass) clazz.getInnerClass(innerClassPath);
         }
-
-        
+  
         return clazz;    
     }
 

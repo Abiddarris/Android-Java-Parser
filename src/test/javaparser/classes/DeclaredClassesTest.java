@@ -39,16 +39,25 @@ public class DeclaredClassesTest {
     public void loadNestedClass() throws ClassNotFoundException {
         java.lang.Class javaClass = java.lang.Class.forName("test.javaparser.classes.FirstClass$E$F");    
 
+        Class clazz = loader.loadClass("test.javaparser.classes.FirstClass$E$F");
+        equalsClass(loader,javaClass, clazz);        
+    }
+    
+    @Test
+    public void loadNestedClass_editable() throws ClassNotFoundException {
+        java.lang.Class javaClass = java.lang.Class.forName("test.javaparser.classes.FirstClass$E$F");    
+
         Class clazz = loader.loadEditableClass("test.javaparser.classes.FirstClass$E$F");
         equalsClass(loader,javaClass, clazz);        
     }
     
     @Test
-    public void a() throws ClassNotFoundException {      
-  
-        java.lang.Class javaClass = java.lang.Class.forName("test.javaparser.classes.NonPublicClassHeader");
-        System.out.println(javaClass);
-        System.out.println(javaClass.getDeclaredMethods().length);
+    public void loadNonPublicClassHeader() throws ClassNotFoundException {      
+        java.lang.Class javaClass = NonPublicClassHeader.class;
+        System.out.println(javaClass.getDeclaredClasses().length);
+       
+        Class clazz = loader.loadEditableClass("test.javaparser.classes.NonPublicClassHeader");
+        equalsClass(loader,javaClass, clazz);        
     }
       
 }
