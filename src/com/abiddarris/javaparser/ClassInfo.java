@@ -37,8 +37,7 @@ class ClassInfo {
     
     private Bracket bracket;
     private EditableClass parent;
-    private Class[] actualClasses;    
-    private Class[] classes;
+    private Class[] declaredClasses;       
     private EditableClass editableClass;
     private List<Generic> generics = new ArrayList<>();   
     private Package _package;
@@ -170,8 +169,8 @@ class ClassInfo {
             name = editableClass.getPackage().getName() + "." + simpleName;                        
     }
     
-    Class[] getActualClasses() {
-        if(actualClasses == null) {
+    Class[] getDeclaredClasses() {
+        if(declaredClasses == null) {
             Bracket lastChild = null;
             List<Class> actualClasses = new ArrayList<>();
             for(Bracket child : bracket.children) {
@@ -187,15 +186,15 @@ class ClassInfo {
 
                 lastChild = child;
             }
-            this.actualClasses = actualClasses.toArray(new Class[0]);
+            this.declaredClasses = actualClasses.toArray(new Class[0]);
         }
         
-        return actualClasses;
+        return declaredClasses;
     }
     
-    Class[] getClasses () {
+   /* Class[] getDeclaredClasses () {
         if(classes == null) {
-            Class[] actualClasses = getActualClasses();
+            Class[] actualClasses = getActualDeclaredClasses();
             List<Class> classes = new ArrayList<>();
             for(Class actualClass : actualClasses) {
                 if(Modifier.isPublic(actualClass.getModifiers()))
@@ -204,7 +203,7 @@ class ClassInfo {
             this.classes = classes.toArray(new Class[0]);
         }
         return classes;
-    }
+    }*/
     
     TypeVariable[] getTypeParameters() {
         if(typeParameters != null) return typeParameters;     

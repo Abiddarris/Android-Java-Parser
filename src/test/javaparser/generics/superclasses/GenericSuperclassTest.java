@@ -113,4 +113,5 @@ public class GenericSuperclassTest {
         Class clazz = loader.loadEditableClass("test.javaparser.generics.superclasses.InnerClassWithGeneric$ExtendsClassWithItsOwnGenericDeclaration");
         equalsClass(loader,javaClass, clazz);      
     }
+   
 }

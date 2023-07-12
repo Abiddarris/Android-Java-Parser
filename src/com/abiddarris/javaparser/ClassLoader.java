@@ -99,11 +99,22 @@ public class ClassLoader {
             classes[i] = clazz;
         }
         
+        EditableClass clazz = null;
+        for(EditableClass _clazz : classes) {
+            if(Modifier.isPublic(_clazz.getModifiers())) {
+                clazz = _clazz;
+                break;
+            }
+        }
+        
+        if(clazz == null) clazz = classes[0];
+        
         if(innerClassPath != null) {
-            return (EditableClass) classes[0].getInnerClass(innerClassPath);
+            return (EditableClass) clazz.getInnerClass(innerClassPath);
         }
 
-        return classes[0];       
+        
+        return clazz;    
     }
 
     private List<Import> handleImports(String importStr) {

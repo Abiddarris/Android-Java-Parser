@@ -20,7 +20,7 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import test.javaparser.JavaParserTest;
-import test.javaparser.classes.GetClasses;
+import test.javaparser.classes.DeclaredClassesTest;
 import test.javaparser.generics.interfaces.GenericInterfaceTest;
 import test.javaparser.generics.superclasses.GenericSuperclassTest;
 import test.javaparser.modifiers.ModifierTest;
@@ -29,9 +29,9 @@ import java.util.Scanner;
 
 public class Main {
     
-    public static void main(String[] args) {             
+    public static void main(String[] args) {                
         System.out.println(run(JavaParserTest.class, ModifierTest.class, 
-            GetClasses.class, GenericInterfaceTest.class, GenericSuperclassTest.class, 
+            DeclaredClassesTest.class, GenericInterfaceTest.class, GenericSuperclassTest.class, 
             GenericTest.class));
     }
     

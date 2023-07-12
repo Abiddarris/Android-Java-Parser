@@ -142,17 +142,6 @@ public class JavaParserTest {
         equalsClass(loader,javaClass, clazz);
     }
 
-
-    @Test
-    public void getClassName() throws ClassNotFoundException {
-        java.lang.Class clazz = java.lang.Class.forName("test.javaparser.classes.GetClasses$E");
-        System.out.println(clazz.getModifiers());
-        System.out.println( clazz.getModifiers());
-        System.out.println(java.lang.reflect.Modifier.toString(clazz.getModifiers()));
-        
-            
-    }
-
     /*@Test
     public void getGenericInterfaces_1() {
         java.lang.Class javaClass = SingleExtendsSingleGenericClass.class;  

@@ -160,16 +160,16 @@ public class EditableClass implements Class {
     }     
 
     @Override
-    public Class[] getClasses() {
-        return classInfo.getClasses();
+    public Class[] getDeclaredClasses() {
+        return classInfo.getDeclaredClasses();
     }
 
     public Import[] getImports() {
         return imports.toArray(new Import[0]);
     }
     
-    public Class[] getActualClasses() {
-        return classInfo.getActualClasses();
+    public Class[] getActualDeclaredClasses() {
+        return classInfo.getDeclaredClasses();
     }
     
     public Class getInnerClass(String name) {
@@ -180,7 +180,7 @@ public class EditableClass implements Class {
             name = name.substring(0,dollarSign);
         }
         
-        for(Class clazz : getActualClasses()) {
+        for(Class clazz : getActualDeclaredClasses()) {
             if(clazz.getSimpleName().equals(name)) {
                 if(innerClassPath != null) {                  
                     return ((EditableClass)clazz).getInnerClass(innerClassPath);                  

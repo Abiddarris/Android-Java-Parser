@@ -121,7 +121,7 @@ class ClassWrapper implements Class {
     }
 
     @Override
-    public Class[] getClasses() {
+    public Class[] getDeclaredClasses() {
         return new Class[0];
     }
 

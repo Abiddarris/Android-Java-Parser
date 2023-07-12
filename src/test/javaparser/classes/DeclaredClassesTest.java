@@ -22,37 +22,32 @@ import org.junit.Test;
 import test.javaparser.ClassLoaderSingleton;
 
 import static test.javaparser.ClassEqualizer.equalsClass;
+import com.abiddarris.javaparser.TypeVariableImpl;
 
-public class GetClasses {
+public class DeclaredClassesTest {
     
     ClassLoader loader = ClassLoaderSingleton.getInstance();
     
     @Test
     public void getClasses() {      
-        java.lang.Class javaClass = GetClasses.class;         
+        java.lang.Class javaClass = FirstClass.class;         
 
-        Class clazz = loader.loadClass("test.javaparser.classes.GetClasses");
+        Class clazz = loader.loadClass("test.javaparser.classes.FirstClass");
         equalsClass(loader,javaClass, clazz);                      
     }  
     
     @Test
     public void loadNestedClass() throws ClassNotFoundException {
-        java.lang.Class javaClass = java.lang.Class.forName("test.javaparser.classes.GetClasses$E$F");    
+        java.lang.Class javaClass = java.lang.Class.forName("test.javaparser.classes.FirstClass$E$F");    
 
-        Class clazz = loader.loadEditableClass("test.javaparser.classes.GetClasses$E$F");
+        Class clazz = loader.loadEditableClass("test.javaparser.classes.FirstClass$E$F");
         equalsClass(loader,javaClass, clazz);        
     }
     
-    public class A {}
-    
-    public static class B{}
-    
-    protected static class C {}
-    
-    static class D {}
-    
-    private static class E {
-        private static class F {}
+    @Test
+    public void a() throws ClassNotFoundException {      
+        //java.lang.Class javaClass = java.lang.Class.forName("test.javaparser.classes.FirstClass.NonPublicClassHeader");   
+        System.out.println(NonPublicClassHeader.class);
     }
       
 }

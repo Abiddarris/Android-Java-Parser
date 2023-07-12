@@ -48,7 +48,7 @@ public class ClassEqualizer {
         equalsTypes(javaClass.getGenericInterfaces(), clazz.getGenericInterfaces());
 
         assertEquals(javaClass.getSimpleName(), clazz.getSimpleName());
-        assertEqualsClasses(loader,javaClass.getClasses(), clazz.getClasses());
+        assertEqualsClasses(loader,javaClass.getDeclaredClasses(), clazz.getDeclaredClasses());
 
 
     }

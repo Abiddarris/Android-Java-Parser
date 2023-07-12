@@ -110,9 +110,9 @@ public interface Class extends GenericDeclaration, Type {
 
      public boolean isLocalClass() {}
 
-     public boolean isMemberClass() {}*/
+     public boolean isMemberClass() {}
 
-     //@androidx.annotation.RecentlyNonNull()
+     @androidx.annotation.RecentlyNonNull()
      Class[] getClasses();
 
      /*@androidx.annotation.RecentlyNonNull()
@@ -133,10 +133,10 @@ public interface Class extends GenericDeclaration, Type {
      @androidx.annotation.RecentlyNonNull()
      public transient java.lang.reflect.Constructor<T> getConstructor(java.lang.Class<?>...parameterTypes) throws java.lang.NoSuchMethodException, java.lang.SecurityException {}
 
-     @androidx.annotation.RecentlyNonNull()
-     public native java.lang.Class<?>[] getDeclaredClasses();
+     @androidx.annotation.RecentlyNonNull()*/
+     Class[] getDeclaredClasses();
 
-     @androidx.annotation.RecentlyNonNull()
+     /*@androidx.annotation.RecentlyNonNull()
      public native java.lang.reflect.Field[] getDeclaredFields();
 
      @androidx.annotation.RecentlyNonNull()
