@@ -1,10 +1,10 @@
 package test.javaparser.packages;
 
 import com.abiddarris.javaparser.ClassLoader;
+import com.abiddarris.javaparser.EditableClass;
 import com.abiddarris.javaparser.EditablePackage;
 import org.junit.Test;
 import test.javaparser.ClassLoaderSingleton;
-import com.abiddarris.javaparser.EditableClass;
 
 public class PackageTest {
     
@@ -17,9 +17,9 @@ public class PackageTest {
     
     @Test
     public void getPackageClasses() {
-        EditablePackage[] editablePackages = loader.getPackages();  
-        for(EditableClass clazz : editablePackages[5].getClasses()) {
-            System.out.println(clazz.getName());
+        EditablePackage editablePackage = loader.getPackage("test.javaparser");
+        for(EditableClass clazz : editablePackage.getClasses()) {
+            //System.out.println(clazz.getName());
         }
     }
 }

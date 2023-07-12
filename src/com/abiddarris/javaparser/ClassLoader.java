@@ -118,6 +118,15 @@ public class ClassLoader {
         return clazz;    
     }
 
+    public EditablePackage getPackage(String name) {
+        for(EditablePackage editablePackage : getPackages()) {
+            if(editablePackage.getName().equals(name)) {
+                return editablePackage;
+            }
+        }
+        return null;
+    }
+    
     public EditablePackage[] getPackages() {
         if(packages == null) {
             List<EditablePackage> editablePackages = new ArrayList<>();
