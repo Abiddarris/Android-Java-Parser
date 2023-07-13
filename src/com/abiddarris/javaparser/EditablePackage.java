@@ -15,13 +15,15 @@
  ******************************************************************************/
 
 package com.abiddarris.javaparser;
+import java.util.List;
+import java.util.ArrayList;
 
 public class EditablePackage extends Package {
     
     private ClassLoader loader;
     private EditableClass[] classes;
     private String name;
-    private String[] paths;
+    private JavaFile[] javaFiles;
 
     public EditablePackage(String name) {
         this.name = name;
@@ -31,19 +33,31 @@ public class EditablePackage extends Package {
     public String getName() {
         return name;
     }
+    
+    public JavaFile getJavaFile(String name) {
+        for(JavaFile javaFile : javaFiles) {
+            if(javaFile.getName().equals(name)) {
+                return javaFile;
+            }                 
+        }
+        return null;
+    }
 
     public EditableClass[] getClasses() {
         if(classes == null) {
-            classes = new EditableClass[paths.length];
-            for(int i = 0; i < classes.length; i++) {
-                classes[i] = loader.loadEditableClass(paths[i]);
+            List<EditableClass> classes = new ArrayList<>();           
+            for(int i = 0; i < javaFiles.length; i++) {
+                for(EditableClass clazz :  javaFiles[i].getClasses()) {
+                    classes.add(clazz);
+                }
             }
+            this.classes = classes.toArray(new EditableClass[0]);
         }
         return classes;
     }
     
-    void setClassPaths(ClassLoader loader, String[] paths) {
+    void setClassPaths(ClassLoader loader, JavaFile[] javaFiles) {
         this.loader = loader;
-        this.paths = paths;
+        this.javaFiles = javaFiles;
     }
 }

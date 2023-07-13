@@ -17,6 +17,12 @@ public class JavaFile extends File{
         
         this.loader = loader;
     }
+
+    @Override
+    public String getName() {
+        return super.getName().replace(".java","");
+    }
+
     
     public void load() {
         StringBuilder builder;
@@ -41,8 +47,7 @@ public class JavaFile extends File{
             Bracket bracket = parent.children.get(i);
             EditableClass clazz = new EditableClass(null,imports,loader,builder.toString(),bracket);
             classes[i] = clazz;
-        }
-        
+        }     
     }
     
     public EditableClass[] getClasses() {

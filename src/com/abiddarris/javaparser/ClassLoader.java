@@ -64,8 +64,17 @@ public class ClassLoader {
             innerClassPath = name.substring(dollarSign + 1);
             name = name.substring(0,dollarSign);
         }
-        JavaFile src = new JavaFile(this,new File(root,name.replace(".","/") + ".java").getPath());
-        EditableClass[] classes = src.getClasses();
+        
+        int period = name.lastIndexOf(".");
+        String packageName = "";
+        if(period != -1) {
+            packageName = name.substring(0,period);
+            name = name.substring(period + 1);
+        }
+        
+        EditableClass[] classes = getPackage(packageName)
+            .getJavaFile(name)
+            .getClasses();
         
         EditableClass clazz = null;
         for(EditableClass _clazz : classes) {
@@ -109,7 +118,7 @@ public class ClassLoader {
             .replace("/",".");
         if(name.startsWith(".")) name = name.substring(1);
         
-        List<String> classPaths = new ArrayList<>();
+        List<JavaFile> classPaths = new ArrayList<>();
         
         EditablePackage editablePackage = new EditablePackage(name);
         editablePackages.add(editablePackage);
@@ -118,17 +127,11 @@ public class ClassLoader {
         for(File file : files) {
             if(file.isDirectory()) {
                 createPackages(editablePackages,file);
-            } else {
-                String classPath = file.getPath()
-                               .replace(".java","")
-                               .replace(root.getPath(),"")
-                               .replace("/",".");
-                               
-                if(classPath.startsWith(".")) classPath = classPath.substring(1);
-                classPaths.add(classPath);
+            } else {               
+                classPaths.add(new JavaFile(this,file.getPath()));
             }
         }
-        editablePackage.setClassPaths(this,classPaths.toArray(new String[0]));
+        editablePackage.setClassPaths(this,classPaths.toArray(new JavaFile[0]));
     }
     
     
