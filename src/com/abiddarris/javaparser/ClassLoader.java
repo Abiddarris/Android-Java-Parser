@@ -64,30 +64,8 @@ public class ClassLoader {
             innerClassPath = name.substring(dollarSign + 1);
             name = name.substring(0,dollarSign);
         }
-        File src = new File(root,name.replace(".","/") + ".java");
-        StringBuilder builder;
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(src));
-            builder = new StringBuilder();
-            String data;
-            while((data = reader.readLine()) != null) {
-                builder.append(data)
-                    .append("\n");
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        
-        Bracket parent = Bracket.parse(builder.toString(),"{","}");       
-        List<Import> imports = handleImports(builder.substring(0,parent.children.get(0).start));
-
-        EditableClass[] classes = new EditableClass[parent.children.size()];       
-        for(int i = 0; i < classes.length; i++) {
-            Bracket bracket = parent.children.get(i);
-            EditableClass clazz = new EditableClass(null,imports,this,builder.toString(),bracket);
-            classes[i] = clazz;
-        }
+        JavaFile src = new JavaFile(this,new File(root,name.replace(".","/") + ".java").getPath());
+        EditableClass[] classes = src.getClasses();
         
         EditableClass clazz = null;
         for(EditableClass _clazz : classes) {
@@ -105,7 +83,8 @@ public class ClassLoader {
   
         return clazz;    
     }
-
+    
+    
     public EditablePackage getPackage(String name) {
         for(EditablePackage editablePackage : getPackages()) {
             if(editablePackage.getName().equals(name)) {
@@ -152,17 +131,5 @@ public class ClassLoader {
         editablePackage.setClassPaths(this,classPaths.toArray(new String[0]));
     }
     
-    private List<Import> handleImports(String importStr) {
-        List<Import> imports = new ArrayList<>();
-        int importStart = 0;
-        while ((importStart = importStr.indexOf("import ", importStart)) != - 1) {
-            int semicolon = importStr.indexOf(";", importStart);
-            importStart += "import ".length();
-
-            Import _import = new Import(importStr.substring(importStart, semicolon));
-            imports.add(_import);
-        }
-        return imports;
-    }
-   
+    
 }
