@@ -72,20 +72,31 @@ public class ClassLoader {
             name = name.substring(period + 1);
         }
         
-        EditableClass[] classes = getPackage(packageName)
-            .getJavaFile(name)
-            .getClasses();
-        
+        EditablePackage editablePackage = getPackage(packageName);
+        JavaFile javaFile = editablePackage.getJavaFile(name);
         EditableClass clazz = null;
-        for(EditableClass _clazz : classes) {
-            if(Modifier.isPublic(_clazz.getModifiers())) {
-                clazz = _clazz;
-                break;
+        if(javaFile == null) {
+            EditableClass[] classes = editablePackage.getClasses();
+            for(EditableClass editableClass : classes) {
+                if(editableClass.getSimpleName().equals(name)) {
+                    clazz = editableClass;
+                    break;
+                }
             }
+            if(clazz == null) throw new NullPointerException();
+        } else {
+            EditableClass[] classes = javaFile.getClasses();
+            for(EditableClass _clazz : classes) {
+                if(Modifier.isPublic(_clazz.getModifiers())) {
+                    clazz = _clazz;
+                    break;
+                }
+            }
+            
+            if(clazz == null) clazz = classes[0];
+        
         }
-        
-        if(clazz == null) clazz = classes[0];
-        
+                     
         if(innerClassPath != null) {
             return (EditableClass) clazz.getInnerClass(innerClassPath);
         }
