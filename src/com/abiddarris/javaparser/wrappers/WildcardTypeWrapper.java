@@ -14,9 +14,13 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.abiddarris.javaparser;
+package com.abiddarris.javaparser.wrappers;
 
-import static com.abiddarris.javaparser.Wrappers.*;
+import com.abiddarris.javaparser.ClassLoader;
+import com.abiddarris.javaparser.java.Type;
+import com.abiddarris.javaparser.java.WildcardType;
+
+import static com.abiddarris.javaparser.wrappers.Wrappers.*;
 
 class WildcardTypeWrapper implements WildcardType {
     

@@ -16,6 +16,8 @@
 
 package com.abiddarris.javaparser;
 
+import com.abiddarris.javaparser.java.AnnotatedElement;
+
 public abstract class Package implements AnnotatedElement {
     
     public abstract String getName();
@@ -60,7 +62,7 @@ public abstract class Package implements AnnotatedElement {
 
     public java.lang.annotation.Annotation[] getDeclaredAnnotations() {}*/
 
-    Package() {}
+    //Package() {}
 
 }
 

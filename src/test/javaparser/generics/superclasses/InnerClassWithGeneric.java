@@ -16,7 +16,6 @@
 
 package test.javaparser.generics.superclasses;
 
-import test.javaparser.generics.interfaces.MyInterface;
 import test.javaparser.generics.ClassTypeVariable4File;
 
 public class InnerClassWithGeneric<A extends Runnable> {

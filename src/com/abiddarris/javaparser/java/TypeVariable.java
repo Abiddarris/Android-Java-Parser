@@ -14,9 +14,15 @@
  * limitations under the License.
  ******************************************************************************/
 
-package test.javaparser.generics.superclasses;
+package com.abiddarris.javaparser.java;
 
-import test.javaparser.outsidepackage.OutsidePackage;
+public interface TypeVariable<D extends GenericDeclaration> extends Type{
+    
+    Type[] getBounds();
 
-public class SimpleExtends extends OutsidePackage {
+    D getGenericDeclaration();
+
+    String getName();
+
 }
+

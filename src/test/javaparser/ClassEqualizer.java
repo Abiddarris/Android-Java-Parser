@@ -17,13 +17,13 @@
 package test.javaparser;
 
 import com.abiddarris.javaparser.Class;
-import com.abiddarris.javaparser.Modifier;
-import com.abiddarris.javaparser.Package;
-import com.abiddarris.javaparser.ParameterizedType;
-import com.abiddarris.javaparser.Type;
-import com.abiddarris.javaparser.TypeVariable;
-import com.abiddarris.javaparser.WildcardType;
 import com.abiddarris.javaparser.ClassLoader;
+import com.abiddarris.javaparser.Package;
+import com.abiddarris.javaparser.java.Field;
+import com.abiddarris.javaparser.java.ParameterizedType;
+import com.abiddarris.javaparser.java.Type;
+import com.abiddarris.javaparser.java.TypeVariable;
+import com.abiddarris.javaparser.java.WildcardType;
 
 import static junit.framework.Assert.*;
 
@@ -49,8 +49,18 @@ public class ClassEqualizer {
 
         assertEquals(javaClass.getSimpleName(), clazz.getSimpleName());
         assertEqualsClasses(loader,javaClass.getDeclaredClasses(), clazz.getDeclaredClasses());
+        equalsFields(javaClass.getDeclaredFields(), clazz.getDeclaredFields());
+    }
 
-
+    public static void equalsFields(java.lang.reflect.Field[] javaFields, Field[] fields) {
+        assertEquals(javaFields.length, fields.length);
+        for(int i = 0; i < javaFields.length; i ++) {
+            
+        }
+    }
+    
+    public static void equalsField(java.lang.reflect.Field javaField, Field field) {
+        
     }
 
     public static void assertEqualsClasses(ClassLoader loader, java.lang.Class[] classes, Class[] parserClasses) {

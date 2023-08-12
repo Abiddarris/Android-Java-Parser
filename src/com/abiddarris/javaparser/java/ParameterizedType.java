@@ -14,20 +14,18 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.abiddarris.javaparser;
+package com.abiddarris.javaparser.java;
 
-public abstract interface AnnotatedElement {
-  
-    /*@androidx.annotation.RecentlyNullable()
-    public abstract <T extends java.lang.annotation.Annotation> T getAnnotation(java.lang.Class<T> p1);
-
-    @androidx.annotation.RecentlyNonNull()
-    public abstract java.lang.annotation.Annotation[] getAnnotations();
+public interface ParameterizedType extends Type {
     
-    public <T extends java.lang.annotation.Annotation> T getDeclaredAnnotation(java.lang.Class<T> annotationClass) {}
+    //@androidx.annotation.RecentlyNonNull()
+    Type[] getActualTypeArguments();
 
-    @androidx.annotation.RecentlyNonNull()
-    public abstract java.lang.annotation.Annotation[] getDeclaredAnnotations();*/
+    //@androidx.annotation.RecentlyNonNull()
+    Type getRawType();
+
+    //@androidx.annotation.RecentlyNullable()
+    Type getOwnerType();
 
 }
 

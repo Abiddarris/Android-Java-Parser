@@ -14,7 +14,10 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.abiddarris.javaparser;
+package com.abiddarris.javaparser.implementations;
+
+import com.abiddarris.javaparser.java.ParameterizedType;
+import com.abiddarris.javaparser.java.Type;
 
 class ParameterizedTypeImpl implements ParameterizedType {
 

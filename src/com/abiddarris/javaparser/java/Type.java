@@ -14,18 +14,9 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.abiddarris.javaparser;
+package com.abiddarris.javaparser.java;
 
-public interface ParameterizedType extends Type {
-    
-    //@androidx.annotation.RecentlyNonNull()
-    Type[] getActualTypeArguments();
-
-    //@androidx.annotation.RecentlyNonNull()
-    Type getRawType();
-
-    //@androidx.annotation.RecentlyNullable()
-    Type getOwnerType();
-
+public interface Type {
+    String getTypeName();
 }
 

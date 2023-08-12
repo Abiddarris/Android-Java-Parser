@@ -14,24 +14,17 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.abiddarris.javaparser;
+package com.abiddarris.javaparser.implementations;
 
+import com.abiddarris.javaparser.Class;
+import com.abiddarris.javaparser.ClassLoader;
+import com.abiddarris.javaparser.Package;
+import com.abiddarris.javaparser.java.Type;
+import com.abiddarris.javaparser.java.TypeVariable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.abiddarris.javaparser.Modifier.ABSTRACT;
-import static com.abiddarris.javaparser.Modifier.ANNOTATION;
-import static com.abiddarris.javaparser.Modifier.FINAL;
-import static com.abiddarris.javaparser.Modifier.INTERFACE;
-import static com.abiddarris.javaparser.Modifier.PROTECTED;
-import static com.abiddarris.javaparser.Modifier.PRIVATE;
-import static com.abiddarris.javaparser.Modifier.PUBLIC;
-import static com.abiddarris.javaparser.Modifier.STATIC;
-import static com.abiddarris.javaparser.Modifier.STRICT;
-import java.util.Arrays;
-import java.util.SortedMap;
-import java.util.Collections;
-//import static com.abiddarris.javaparser.Modifier.SYNCHRONIZED;
+import static com.abiddarris.javaparser.java.Modifier.*;
 
 class ClassInfo {
     

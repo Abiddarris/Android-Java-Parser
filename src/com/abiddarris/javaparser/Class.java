@@ -16,7 +16,13 @@
 
 package com.abiddarris.javaparser;
 
-public interface Class extends GenericDeclaration, Type {
+import com.abiddarris.javaparser.java.AnnotatedElement;
+import com.abiddarris.javaparser.java.Field;
+import com.abiddarris.javaparser.java.GenericDeclaration;
+import com.abiddarris.javaparser.java.Type;
+import com.abiddarris.javaparser.java.TypeVariable;
+
+public interface Class extends GenericDeclaration, Type, AnnotatedElement {
 
     /*
      @androidx.annotation.RecentlyNonNull()
@@ -136,10 +142,10 @@ public interface Class extends GenericDeclaration, Type {
      @androidx.annotation.RecentlyNonNull()*/
      Class[] getDeclaredClasses();
 
-     /*@androidx.annotation.RecentlyNonNull()
-     public native java.lang.reflect.Field[] getDeclaredFields();
+     //@androidx.annotation.RecentlyNonNull()
+     Field[] getDeclaredFields();
 
-     @androidx.annotation.RecentlyNonNull()
+     /*@androidx.annotation.RecentlyNonNull()
      public java.lang.reflect.Method[] getDeclaredMethods() throws java.lang.SecurityException {}
 
      @androidx.annotation.RecentlyNonNull()

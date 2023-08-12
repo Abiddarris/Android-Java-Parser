@@ -18,7 +18,7 @@ package test.javaparser;
 
 import com.abiddarris.javaparser.Class;
 import com.abiddarris.javaparser.ClassLoader;
-import com.abiddarris.javaparser.EditableClass;
+import com.abiddarris.javaparser.implementations.EditableClass;
 import java.io.IOException;
 import org.junit.Test;
 import test.javaparser.generics.ClassFile;

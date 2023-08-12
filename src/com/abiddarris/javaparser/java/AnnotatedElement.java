@@ -14,19 +14,20 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.abiddarris.javaparser;
+package com.abiddarris.javaparser.java;
 
-class PackageWrapper extends Package {
+public abstract interface AnnotatedElement {
+  
+    /*@androidx.annotation.RecentlyNullable()
+    public abstract <T extends java.lang.annotation.Annotation> T getAnnotation(java.lang.Class<T> p1);
 
-    private java.lang.Package _package;
-
-    PackageWrapper(java.lang.Package _package){
-        this._package = _package;
-    }
+    @androidx.annotation.RecentlyNonNull()
+    public abstract java.lang.annotation.Annotation[] getAnnotations();
     
-    @Override
-    public String getName() {
-        return _package.getName();
-    }
-    
+    public <T extends java.lang.annotation.Annotation> T getDeclaredAnnotation(java.lang.Class<T> annotationClass) {}
+
+    @androidx.annotation.RecentlyNonNull()
+    public abstract java.lang.annotation.Annotation[] getDeclaredAnnotations();*/
+
 }
+

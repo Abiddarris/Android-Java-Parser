@@ -1,6 +1,7 @@
 package test.javaparser.classes;
 
 class NonPublicClassHeader {}
+
 public class FirstClass {
     
     public class A {}

@@ -14,14 +14,20 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.abiddarris.javaparser;
+package com.abiddarris.javaparser.wrappers;
+
+import com.abiddarris.javaparser.ClassLoader;
+import com.abiddarris.javaparser.java.Type;
+import com.abiddarris.javaparser.wrappers.ParameterizedTypeWrapper;
+import com.abiddarris.javaparser.wrappers.TypeVariableWrapper;
+import com.abiddarris.javaparser.wrappers.WildcardTypeWrapper;
 
 class Wrappers {
     
     static Type wrapType(ClassLoader loader, java.lang.reflect.Type type) {
         if (type instanceof java.lang.Class) {
             java.lang.Class clazz = (java.lang.Class) type;
-             return loader.loadClass(clazz.getName());
+            return loader.loadClass(clazz.getName());
         } else if (type instanceof java.lang.reflect.TypeVariable) {
              return new TypeVariableWrapper(loader, (java.lang.reflect.TypeVariable)type);
         } else if (type instanceof java.lang.reflect.ParameterizedType) {

@@ -14,9 +14,12 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.abiddarris.javaparser;
-import java.util.List;
+package com.abiddarris.javaparser.implementations;
+ 
+import com.abiddarris.javaparser.ClassLoader;
+import com.abiddarris.javaparser.Package;
 import java.util.ArrayList;
+import java.util.List;
 
 public class EditablePackage extends Package {
     
@@ -56,7 +59,7 @@ public class EditablePackage extends Package {
         return classes;
     }
     
-    void setClassPaths(ClassLoader loader, JavaFile[] javaFiles) {
+    public void setClassPaths(ClassLoader loader, JavaFile[] javaFiles) {
         this.loader = loader;
         this.javaFiles = javaFiles;
     }

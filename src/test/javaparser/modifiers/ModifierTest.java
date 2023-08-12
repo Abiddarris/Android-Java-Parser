@@ -21,14 +21,14 @@ import com.abiddarris.javaparser.ClassLoader;
 import org.junit.Test;
 import test.javaparser.ClassLoaderSingleton;
 
-import static com.abiddarris.javaparser.Modifier.ABSTRACT;
-import static com.abiddarris.javaparser.Modifier.FINAL;
-import static com.abiddarris.javaparser.Modifier.INTERFACE;
-import static com.abiddarris.javaparser.Modifier.PROTECTED;
-import static com.abiddarris.javaparser.Modifier.PRIVATE;
-import static com.abiddarris.javaparser.Modifier.PUBLIC;
-import static com.abiddarris.javaparser.Modifier.STATIC;
-import static com.abiddarris.javaparser.Modifier.STRICT;
+import static com.abiddarris.javaparser.java.Modifier.ABSTRACT;
+import static com.abiddarris.javaparser.java.Modifier.FINAL;
+import static com.abiddarris.javaparser.java.Modifier.INTERFACE;
+import static com.abiddarris.javaparser.java.Modifier.PROTECTED;
+import static com.abiddarris.javaparser.java.Modifier.PRIVATE;
+import static com.abiddarris.javaparser.java.Modifier.PUBLIC;
+import static com.abiddarris.javaparser.java.Modifier.STATIC;
+import static com.abiddarris.javaparser.java.Modifier.STRICT;
 import static test.javaparser.ClassEqualizer.equalsClass;
 import static org.junit.Assert.assertEquals;
 

@@ -14,11 +14,21 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.abiddarris.javaparser;
+package com.abiddarris.javaparser.wrappers;
 
-public interface GenericDeclaration extends AnnotatedElement {
+import com.abiddarris.javaparser.Package;
+
+class PackageWrapper extends Package {
+
+    private java.lang.Package _package;
+
+    PackageWrapper(java.lang.Package _package){
+        this._package = _package;
+    }
     
-    TypeVariable<?>[] getTypeParameters();
-
+    @Override
+    public String getName() {
+        return _package.getName();
+    }
+    
 }
-

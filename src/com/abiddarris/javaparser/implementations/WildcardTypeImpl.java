@@ -14,7 +14,10 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.abiddarris.javaparser;
+package com.abiddarris.javaparser.implementations;
+
+import com.abiddarris.javaparser.java.Type;
+import com.abiddarris.javaparser.java.WildcardType;
 
 public class WildcardTypeImpl implements WildcardType {
     

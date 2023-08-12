@@ -14,7 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.abiddarris.javaparser;
+package com.abiddarris.javaparser.implementations;
 
 import java.util.regex.Pattern;
 

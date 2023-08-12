@@ -14,28 +14,37 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.abiddarris.javaparser;
+package com.abiddarris.javaparser.wrappers;
 
-class TypeVariableImpl<D extends GenericDeclaration> implements TypeVariable<D> {
+import com.abiddarris.javaparser.ClassLoader;
+import com.abiddarris.javaparser.java.GenericDeclaration;
+import com.abiddarris.javaparser.java.Type;
+import com.abiddarris.javaparser.java.TypeVariable;
 
+import static com.abiddarris.javaparser.wrappers.Wrappers.*;
+
+class TypeVariableWrapper<D extends GenericDeclaration> implements TypeVariable<D> {
+    
     private D genericDeclaration;
     private String name;
     private Type[] types;
-    
-    TypeVariableImpl(D genericDeclaration, String name) {
-        this(genericDeclaration,name,null);
+
+    TypeVariableWrapper(ClassLoader loader, java.lang.reflect.TypeVariable<java.lang.Class> variable) {
+        genericDeclaration = (D) new ClassWrapper(loader,variable.getGenericDeclaration());
+        name = variable.getName();
+       
+        java.lang.reflect.Type[] types = variable.getBounds();
+        this.types = new Type[types.length];                     
+
+        for(int j = 0; j < types.length; j++) {
+            java.lang.reflect.Type type = types[j];
+            this.types[j] = wrapType(loader, type);                      
+        }
+        
     }
 
-    TypeVariableImpl(D genericDeclaration, String name, Type[] types) {
-        this.genericDeclaration = genericDeclaration;
-        this.name = name;
-        this.types = types;
-    }
     
-    void setBounds(Type[] types) {
-        this.types = types;
-    }
-
+    
     @Override
     public String getTypeName() {
         return getName();
@@ -50,10 +59,13 @@ class TypeVariableImpl<D extends GenericDeclaration> implements TypeVariable<D> 
     public D getGenericDeclaration() {
         return genericDeclaration;
     }
-
+    
     @Override
     public String getName() {
         return name;
     }
+    
+    
+    
     
 }

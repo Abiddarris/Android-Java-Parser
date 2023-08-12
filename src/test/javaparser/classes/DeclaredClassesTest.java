@@ -36,6 +36,14 @@ public class DeclaredClassesTest {
     }  
     
     @Test
+    public void getClasses_onWrapper() throws ClassNotFoundException {
+        java.lang.Class javaClass = FirstClass.class;         
+
+        Class clazz = loader.loadClassWrapper("test.javaparser.classes.FirstClass");
+        equalsClass(loader,javaClass, clazz);            
+    }
+    
+    @Test
     public void loadNestedClass() throws ClassNotFoundException {
         java.lang.Class javaClass = java.lang.Class.forName("test.javaparser.classes.FirstClass$E$F");    
 

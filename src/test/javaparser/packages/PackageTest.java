@@ -1,8 +1,8 @@
 package test.javaparser.packages;
 
 import com.abiddarris.javaparser.ClassLoader;
-import com.abiddarris.javaparser.EditableClass;
-import com.abiddarris.javaparser.EditablePackage;
+import com.abiddarris.javaparser.implementations.EditableClass;
+import com.abiddarris.javaparser.implementations.EditablePackage;
 import org.junit.Test;
 import test.javaparser.ClassLoaderSingleton;
 

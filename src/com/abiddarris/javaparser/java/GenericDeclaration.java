@@ -14,15 +14,11 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.abiddarris.javaparser;
+package com.abiddarris.javaparser.java;
 
-public interface WildcardType extends Type{
+public interface GenericDeclaration extends AnnotatedElement {
     
-    //@androidx.annotation.RecentlyNonNull()
-    Type[] getUpperBounds();
-
-    //@androidx.annotation.RecentlyNonNull()
-    Type[] getLowerBounds();
+    TypeVariable<?>[] getTypeParameters();
 
 }
 

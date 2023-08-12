@@ -14,18 +14,23 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.abiddarris.javaparser;
+package com.abiddarris.javaparser.wrappers;
 
-import java.io.IOException;
+import com.abiddarris.javaparser.Class;
+import com.abiddarris.javaparser.ClassLoader;
+import com.abiddarris.javaparser.Package;
+import com.abiddarris.javaparser.java.Field;
+import com.abiddarris.javaparser.java.Type;
+import com.abiddarris.javaparser.java.TypeVariable;
 
-import static com.abiddarris.javaparser.Wrappers.*;
+import static com.abiddarris.javaparser.wrappers.Wrappers.*;
 
-class ClassWrapper implements Class {
+public class ClassWrapper implements Class {
     
     private ClassLoader loader;
     private java.lang.Class clazz;
 
-    ClassWrapper(ClassLoader loader, java.lang.Class clazz) {
+    public ClassWrapper(ClassLoader loader, java.lang.Class clazz) {
         this.loader = loader;
         this.clazz = clazz;
     }
@@ -122,9 +127,17 @@ class ClassWrapper implements Class {
 
     @Override
     public Class[] getDeclaredClasses() {
-        return new Class[0];
+        java.lang.Class[] classes = clazz.getDeclaredClasses();
+        Class[] editableClass = new Class[classes.length];
+        for(int i = 0; i < classes.length; i++) {
+            editableClass[i] = new ClassWrapper(loader, classes[i]);
+        }
+        return editableClass;
     }
 
-    
+    @Override
+    public Field[] getDeclaredFields() {
+        return new Field[0];
+    }
     
 }

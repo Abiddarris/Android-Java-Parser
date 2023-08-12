@@ -14,8 +14,14 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.abiddarris.javaparser;
+package com.abiddarris.javaparser.implementations;
 
+import com.abiddarris.javaparser.Class;
+import com.abiddarris.javaparser.ClassLoader;
+import com.abiddarris.javaparser.Package;
+import com.abiddarris.javaparser.java.Field;
+import com.abiddarris.javaparser.java.Type;
+import com.abiddarris.javaparser.java.TypeVariable;
 import java.util.List;
 
 public class EditableClass implements Class {
@@ -31,7 +37,7 @@ public class EditableClass implements Class {
     private String simpleName;
     private String superClass;    
     
-    EditableClass(EditableClass parent, List<Import> imports, ClassLoader loader, String code, Bracket bracket) {          
+    public EditableClass(EditableClass parent, List<Import> imports, ClassLoader loader, String code, Bracket bracket) {          
         this.loader = loader;
         this.imports = imports;   
         
@@ -162,6 +168,11 @@ public class EditableClass implements Class {
     @Override
     public Class[] getDeclaredClasses() {
         return classInfo.getDeclaredClasses();
+    }
+
+    @Override
+    public Field[] getDeclaredFields() {
+        return new Field[0];
     }
 
     public Import[] getImports() {
