@@ -20,8 +20,10 @@ import com.abiddarris.javaparser.Class;
 import com.abiddarris.javaparser.ClassLoader;
 import org.junit.Test;
 import test.javaparser.ClassLoaderSingleton;
+import test.javaparser.classes.FirstClass;
 
 import static test.javaparser.ClassEqualizer.equalsClass;
+import test.javaparser.generics.superclasses.InnerClassWithGeneric;
 
 public class FieldTest {
 
@@ -37,10 +39,11 @@ public class FieldTest {
 
     @Test
     public void test() {
-        java.lang.Class javaClass = FieldClass.class;    
+        java.lang.Class javaClass = InnerClassWithGeneric.ExtendsClass.class;    
         for(java.lang.reflect.Field field : javaClass.getDeclaredFields()) {
             System.out.println(field.getDeclaringClass());
             System.out.println(field.toString());
+            System.out.println(field.isSynthetic());
         }
     }
 }

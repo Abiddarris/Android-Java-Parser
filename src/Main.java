@@ -27,13 +27,14 @@ import test.javaparser.generics.superclasses.GenericSuperclassTest;
 import test.javaparser.modifiers.ModifierTest;
 import test.javaparser.packages.PackageTest;
 import test.javaparser.fields.FieldTest;
+import test.javaparser.annotations.AnnotationsTest;
 
 public class Main {
     
     public static void main(String[] args) {                
         System.out.println(run(JavaParserTest.class, ModifierTest.class, 
             DeclaredClassesTest.class, GenericInterfaceTest.class, GenericSuperclassTest.class, 
-            GenericTest.class, PackageTest.class, FieldTest.class));
+            GenericTest.class, PackageTest.class, FieldTest.class, AnnotationsTest.class));
     }
     
     public static final String run(Class... classes){

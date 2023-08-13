@@ -1,6 +1,6 @@
 package com.abiddarris.javaparser.java;
 
-public abstract class AccessibleObject implements AnnotatedElement {
+public interface AccessibleObject extends AnnotatedElement {
     
     /*public static void setAccessible(java.lang.reflect.AccessibleObject[] array, boolean flag) throws java.lang.SecurityException {}
 

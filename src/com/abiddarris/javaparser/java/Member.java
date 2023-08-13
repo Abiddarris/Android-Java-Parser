@@ -1,19 +1,21 @@
 package com.abiddarris.javaparser.java;
 
+import com.abiddarris.javaparser.Class;
+
 public abstract interface Member {
     /*public static final int DECLARED = 1;
 
     public static final int PUBLIC = 0;
 
-    @androidx.annotation.RecentlyNonNull()
-    public abstract java.lang.Class<?> getDeclaringClass();
+    @androidx.annotation.RecentlyNonNull()*/
+    Class getDeclaringClass();
 
-    @androidx.annotation.RecentlyNonNull()
-    public abstract java.lang.String getName();
+    //@androidx.annotation.RecentlyNonNull()
+    String getName();
 
-    public abstract int getModifiers();
+    /*public abstract int getModifiers();
 
-    public abstract boolean isSynthetic();
-*/
+    public abstract boolean isSynthetic();*/
+
 }
 

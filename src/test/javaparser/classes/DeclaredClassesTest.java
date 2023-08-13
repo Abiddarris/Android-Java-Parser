@@ -29,8 +29,8 @@ public class DeclaredClassesTest {
     
     @Test
     public void getClasses() {      
-        java.lang.Class javaClass = FirstClass.class;         
-
+        java.lang.Class javaClass = FirstClass.class;    
+        
         Class clazz = loader.loadClass("test.javaparser.classes.FirstClass");
         equalsClass(loader,javaClass, clazz);                      
     }  

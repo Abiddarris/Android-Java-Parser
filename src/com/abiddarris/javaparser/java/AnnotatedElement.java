@@ -16,18 +16,26 @@
 
 package com.abiddarris.javaparser.java;
 
+import com.abiddarris.javaparser.annotation.Annotation;
+
 public abstract interface AnnotatedElement {
   
-    /*@androidx.annotation.RecentlyNullable()
-    public abstract <T extends java.lang.annotation.Annotation> T getAnnotation(java.lang.Class<T> p1);
+    //public boolean isAnnotationPresent(java.lang.Class<? extends java.lang.annotation.Annotation> annotationClass) {}
 
-    @androidx.annotation.RecentlyNonNull()
-    public abstract java.lang.annotation.Annotation[] getAnnotations();
-    
-    public <T extends java.lang.annotation.Annotation> T getDeclaredAnnotation(java.lang.Class<T> annotationClass) {}
+    //@androidx.annotation.RecentlyNullable()
+    //public abstract <T extends java.lang.annotation.Annotation> T getAnnotation(java.lang.Class<T> p1);
 
-    @androidx.annotation.RecentlyNonNull()
-    public abstract java.lang.annotation.Annotation[] getDeclaredAnnotations();*/
+    //@androidx.annotation.RecentlyNonNull()
+    //public abstract java.lang.annotation.Annotation[] getAnnotations();
 
+    //public <T extends java.lang.annotation.Annotation> T[] getAnnotationsByType(java.lang.Class<T> annotationClass) {}
+
+    //@androidx.annotation.RecentlyNullable()
+    //public <T extends java.lang.annotation.Annotation> T getDeclaredAnnotation(java.lang.Class<T> annotationClass) {}
+
+    //public <T extends java.lang.annotation.Annotation> T[] getDeclaredAnnotationsByType(java.lang.Class<T> annotationClass) {}
+
+    //@androidx.annotation.RecentlyNonNull()
+    Annotation[] getDeclaredAnnotations();
 }
 

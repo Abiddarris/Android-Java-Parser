@@ -17,6 +17,7 @@
 package com.abiddarris.javaparser.wrappers;
 
 import com.abiddarris.javaparser.Package;
+import com.abiddarris.javaparser.annotation.Annotation;
 
 class PackageWrapper extends Package {
 
@@ -31,4 +32,9 @@ class PackageWrapper extends Package {
         return _package.getName();
     }
     
+    @Override
+    public Annotation[] getDeclaredAnnotations() {
+        //TODO :
+        return null;
+    }
 }

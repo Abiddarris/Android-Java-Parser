@@ -26,6 +26,8 @@ import com.abiddarris.javaparser.java.TypeVariable;
 import com.abiddarris.javaparser.java.WildcardType;
 
 import static junit.framework.Assert.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class ClassEqualizer {
     
@@ -49,18 +51,28 @@ public class ClassEqualizer {
 
         assertEquals(javaClass.getSimpleName(), clazz.getSimpleName());
         assertEqualsClasses(loader,javaClass.getDeclaredClasses(), clazz.getDeclaredClasses());
-        equalsFields(javaClass.getDeclaredFields(), clazz.getDeclaredFields());
+       
+        java.lang.reflect.Field[] fields = javaClass.getDeclaredFields();
+        List<java.lang.reflect.Field> javaFields = new ArrayList<>();
+        for(java.lang.reflect.Field field : fields) {
+            if (!(field.getName().contains("this$") || field.isSynthetic())) {
+                javaFields.add(field);               
+            }
+        }
+        
+        equalsFields(javaFields.toArray(new java.lang.reflect.Field[0]), clazz.getDeclaredFields());
     }
 
     public static void equalsFields(java.lang.reflect.Field[] javaFields, Field[] fields) {
         assertEquals(javaFields.length, fields.length);
         for(int i = 0; i < javaFields.length; i ++) {
-            
+            equalsField(javaFields[i], fields[i]);
         }
     }
     
     public static void equalsField(java.lang.reflect.Field javaField, Field field) {
-        
+        assertEquals(javaField.getDeclaringClass().getName(), field.getDeclaringClass().getName());
+        assertEquals(javaField.getName(),field.getName());
     }
 
     public static void assertEqualsClasses(ClassLoader loader, java.lang.Class[] classes, Class[] parserClasses) {

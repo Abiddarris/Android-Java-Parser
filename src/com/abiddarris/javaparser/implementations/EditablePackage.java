@@ -20,6 +20,7 @@ import com.abiddarris.javaparser.ClassLoader;
 import com.abiddarris.javaparser.Package;
 import java.util.ArrayList;
 import java.util.List;
+import com.abiddarris.javaparser.annotation.Annotation;
 
 public class EditablePackage extends Package {
     
@@ -35,6 +36,12 @@ public class EditablePackage extends Package {
     @Override
     public String getName() {
         return name;
+    }
+    
+    @Override
+    public Annotation[] getDeclaredAnnotations() {
+        //TODO :
+        return null;
     }
     
     public JavaFile getJavaFile(String name) {

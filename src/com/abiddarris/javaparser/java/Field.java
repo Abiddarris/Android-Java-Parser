@@ -1,14 +1,16 @@
 package com.abiddarris.javaparser.java;
 
-public abstract class Field extends AccessibleObject implements Member {
+import com.abiddarris.javaparser.Class;
+
+public interface Field extends AccessibleObject, Member {
  
-    /*@androidx.annotation.RecentlyNonNull()
-    public java.lang.Class<?> getDeclaringClass() {}
+    //@androidx.annotation.RecentlyNonNull()
+    Class getDeclaringClass();
+    
+   //@androidx.annotation.RecentlyNonNull()
+    String getName();
 
-    @androidx.annotation.RecentlyNonNull()
-    public java.lang.String getName() {}
-
-    public int getModifiers() {}
+    /*public int getModifiers() {}
 
     public boolean isEnumConstant() {}
 

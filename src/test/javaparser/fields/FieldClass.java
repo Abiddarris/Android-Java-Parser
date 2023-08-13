@@ -18,5 +18,6 @@ package test.javaparser.fields;
 public class FieldClass {
     
     Object a;
+    int b = 10;
     
 }

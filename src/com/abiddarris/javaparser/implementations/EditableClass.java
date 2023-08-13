@@ -19,6 +19,7 @@ package com.abiddarris.javaparser.implementations;
 import com.abiddarris.javaparser.Class;
 import com.abiddarris.javaparser.ClassLoader;
 import com.abiddarris.javaparser.Package;
+import com.abiddarris.javaparser.annotation.Annotation;
 import com.abiddarris.javaparser.java.Field;
 import com.abiddarris.javaparser.java.Type;
 import com.abiddarris.javaparser.java.TypeVariable;
@@ -172,7 +173,13 @@ public class EditableClass implements Class {
 
     @Override
     public Field[] getDeclaredFields() {
-        return new Field[0];
+        return classInfo.getDeclaredFields();
+    }
+    
+    @Override
+    public Annotation[] getDeclaredAnnotations() {
+        //TODO :
+        return null;
     }
 
     public Import[] getImports() {

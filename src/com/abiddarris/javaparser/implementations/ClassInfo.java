@@ -19,10 +19,13 @@ package com.abiddarris.javaparser.implementations;
 import com.abiddarris.javaparser.Class;
 import com.abiddarris.javaparser.ClassLoader;
 import com.abiddarris.javaparser.Package;
+import com.abiddarris.javaparser.java.Field;
 import com.abiddarris.javaparser.java.Type;
 import com.abiddarris.javaparser.java.TypeVariable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.abiddarris.javaparser.java.Modifier.*;
 
@@ -32,6 +35,7 @@ class ClassInfo {
     private EditableClass parent;
     private Class[] declaredClasses;       
     private EditableClass editableClass;
+    private Field[] declaredFields;
     private List<Generic> generics = new ArrayList<>();   
     private Package _package;
     private String cleanJavaInfo;
@@ -183,6 +187,43 @@ class ClassInfo {
         }
         
         return declaredClasses;
+    }
+    
+    Field[] getDeclaredFields() {
+        if(declaredFields != null) {
+            return declaredFields;
+        }
+        String code = this.code.substring(bracket.start + 1,bracket.end);
+        Pattern pattern = Pattern.compile(";");
+        Matcher matcher = pattern.matcher(code);        
+        List<Field> fields = new ArrayList<>();
+        while(matcher.find()) {
+            int semicolon = matcher.start();
+            semicolon += bracket.start;
+            boolean isField = true;
+            for(Bracket bracket : bracket.children) {
+                if(semicolon > bracket.start && semicolon < bracket.end &&
+                    semicolon > this.bracket.start && semicolon < this.bracket.end) {
+                    isField = false;
+                    break;
+                }
+            }
+            semicolon -= bracket.start;
+            if(isField) {
+                String tempCode = code.substring(0,semicolon);
+                int lastSemicolon = tempCode.lastIndexOf(";");
+                int lastCurlyBracketEnd = tempCode.lastIndexOf("}");
+                
+                int start = Math.max(lastSemicolon,lastCurlyBracketEnd);
+                start = Math.max(start,0);
+                
+                Field field = new EditableField(editableClass,code.substring(start,semicolon));
+                fields.add(field);
+            }
+            
+        }
+        declaredFields = fields.toArray(new Field[0]);
+        return declaredFields;
     }
     
    /* Class[] getDeclaredClasses () {

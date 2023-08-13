@@ -19,6 +19,7 @@ package com.abiddarris.javaparser.wrappers;
 import com.abiddarris.javaparser.Class;
 import com.abiddarris.javaparser.ClassLoader;
 import com.abiddarris.javaparser.Package;
+import com.abiddarris.javaparser.annotation.Annotation;
 import com.abiddarris.javaparser.java.Field;
 import com.abiddarris.javaparser.java.Type;
 import com.abiddarris.javaparser.java.TypeVariable;
@@ -137,7 +138,17 @@ public class ClassWrapper implements Class {
 
     @Override
     public Field[] getDeclaredFields() {
-        return new Field[0];
+        java.lang.reflect.Field[] javaFields = clazz.getDeclaredFields();
+        Field[] fields = new Field[javaFields.length];
+        for(int i = 0; i < javaFields.length; i++) {
+            fields[i] = new FieldWrapper(this,javaFields[i]);
+        }
+        return fields;
     }
     
+    @Override
+    public Annotation[] getDeclaredAnnotations() {
+        //TODO :
+        return null;
+    }
 }
