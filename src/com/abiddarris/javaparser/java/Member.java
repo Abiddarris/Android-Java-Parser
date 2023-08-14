@@ -13,9 +13,9 @@ public abstract interface Member {
     //@androidx.annotation.RecentlyNonNull()
     String getName();
 
-    /*public abstract int getModifiers();
+    //int getModifiers();
 
-    public abstract boolean isSynthetic();*/
+    /*public abstract boolean isSynthetic();*/
 
 }
 

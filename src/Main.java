@@ -20,21 +20,24 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import test.javaparser.JavaParserTest;
+import test.javaparser.annotations.AnnotationsTest;
+import test.javaparser.classes.ClassLoaderTest;
 import test.javaparser.classes.DeclaredClassesTest;
+import test.javaparser.fields.FieldTest;
 import test.javaparser.generics.GenericTest;
 import test.javaparser.generics.interfaces.GenericInterfaceTest;
 import test.javaparser.generics.superclasses.GenericSuperclassTest;
 import test.javaparser.modifiers.ModifierTest;
 import test.javaparser.packages.PackageTest;
-import test.javaparser.fields.FieldTest;
-import test.javaparser.annotations.AnnotationsTest;
 
 public class Main {
+    
+    int a;
     
     public static void main(String[] args) {                
         System.out.println(run(JavaParserTest.class, ModifierTest.class, 
             DeclaredClassesTest.class, GenericInterfaceTest.class, GenericSuperclassTest.class, 
-            GenericTest.class, PackageTest.class, FieldTest.class, AnnotationsTest.class));
+            GenericTest.class, PackageTest.class, FieldTest.class, AnnotationsTest.class, ClassLoaderTest.class));
     }
     
     public static final String run(Class... classes){

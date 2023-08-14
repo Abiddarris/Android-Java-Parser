@@ -16,15 +16,13 @@
 
 package com.abiddarris.javaparser.implementations;
  
-import com.abiddarris.javaparser.ClassLoader;
 import com.abiddarris.javaparser.Package;
+import com.abiddarris.javaparser.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
-import com.abiddarris.javaparser.annotation.Annotation;
 
 public class EditablePackage extends Package {
     
-    private ClassLoader loader;
     private EditableClass[] classes;
     private String name;
     private JavaFile[] javaFiles;
@@ -66,8 +64,12 @@ public class EditablePackage extends Package {
         return classes;
     }
     
-    public void setClassPaths(ClassLoader loader, JavaFile[] javaFiles) {
-        this.loader = loader;
+    public void setClassPaths(JavaFile[] javaFiles) {      
+        classes = null;
         this.javaFiles = javaFiles;
+    }
+    
+    public JavaFile[] getJavaFiles() {
+        return javaFiles;
     }
 }

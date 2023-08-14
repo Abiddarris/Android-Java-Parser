@@ -21,7 +21,8 @@ public class EditableField implements Field {
                 .trim();
             name = name.substring(name.lastIndexOf(" "))
                 .trim();
-        }               
+        }  
+        ClassLoader a;
     }
 
     @Override

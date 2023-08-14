@@ -18,86 +18,30 @@ package com.abiddarris.javaparser;
 
 import com.abiddarris.javaparser.implementations.EditableClass;
 import com.abiddarris.javaparser.implementations.EditablePackage;
-import com.abiddarris.javaparser.implementations.JavaFile;
-import com.abiddarris.javaparser.java.Modifier;
 import com.abiddarris.javaparser.wrappers.ClassWrapper;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
-public class ClassLoader {
-       
-    private File root;
-    private EditablePackage[] packages;
-
-    public ClassLoader(File root) {
-        this.root = root;
+public abstract class ClassLoader {
+   
+    private ClassLoader parent;
+    
+    private static final ClassLoader SYSTEM_CLASS_LOADER = new SystemClassLoader();
+    
+    ClassLoader(ClassLoader parent) {
+        this.parent = parent;
     }
     
-    public Class loadClass(String name) {
-        try {
-            return loadEditableClass(name);
-        } catch (Exception e) {           
-        }
-        
-        try {
-            return loadClassWrapper(name);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }   
-
-    public ClassWrapper loadClassWrapper(String name) throws ClassNotFoundException {
-        return new ClassWrapper(this,java.lang.Class.forName(name));
-    }  
-    
-    public EditableClass loadEditableClass(String name) {
-        String innerClassPath = null;
-        int dollarSign = name.indexOf("$");
-        if(dollarSign != -1) {
-            innerClassPath = name.substring(dollarSign + 1);
-            name = name.substring(0,dollarSign);
-        }
-        
-        int period = name.lastIndexOf(".");
-        String packageName = "";
-        if(period != -1) {
-            packageName = name.substring(0,period);
-            name = name.substring(period + 1);
-        }
-        
-        EditablePackage editablePackage = getPackage(packageName);
-        JavaFile javaFile = editablePackage.getJavaFile(name);
-        EditableClass clazz = null;
-        if(javaFile == null) {
-            EditableClass[] classes = editablePackage.getClasses();
-            for(EditableClass editableClass : classes) {
-                if(editableClass.getSimpleName().equals(name)) {
-                    clazz = editableClass;
-                    break;
-                }
-            }
-            if(clazz == null) throw new NullPointerException();
-        } else {
-            EditableClass[] classes = javaFile.getClasses();
-            for(EditableClass _clazz : classes) {
-                if(Modifier.isPublic(_clazz.getModifiers())) {
-                    clazz = _clazz;
-                    break;
-                }
-            }
-            
-            if(clazz == null) clazz = classes[0];
-        
-        }
-                     
-        if(innerClassPath != null) {
-            return (EditableClass) clazz.getInnerClass(innerClassPath);
-        }
-  
-        return clazz;    
+    ClassLoader() {       
     }
     
+    public abstract Class loadClass(String name); 
+
+    public abstract ClassWrapper loadClassWrapper(String name) throws ClassNotFoundException;       
+    
+    public abstract EditableClass loadEditableClass(String name);  
+    
+    public ClassLoader getParent() {
+        return parent;
+    }
     
     public EditablePackage getPackage(String name) {
         for(EditablePackage editablePackage : getPackages()) {
@@ -109,35 +53,11 @@ public class ClassLoader {
     }
     
     public EditablePackage[] getPackages() {
-        if(packages == null) {
-            List<EditablePackage> editablePackages = new ArrayList<>();
-            createPackages(editablePackages,root);   
-            packages = editablePackages.toArray(new EditablePackage[0]);
-        }
-        return packages;
+        return new EditablePackage[0];       
+    }
+    
+    public static ClassLoader getSystemClassLoader() {
+        return SYSTEM_CLASS_LOADER;
     }
 
-    private void createPackages(List<EditablePackage> editablePackages, File packageFile) {
-        String name = packageFile.getPath()
-            .replace(root.getPath(),"")
-            .replace("/",".");
-        if(name.startsWith(".")) name = name.substring(1);
-        
-        List<JavaFile> classPaths = new ArrayList<>();
-        
-        EditablePackage editablePackage = new EditablePackage(name);
-        editablePackages.add(editablePackage);
-        
-        File[] files = packageFile.listFiles();         
-        for(File file : files) {
-            if(file.isDirectory()) {
-                createPackages(editablePackages,file);
-            } else {               
-                classPaths.add(new JavaFile(this,file.getPath()));
-            }
-        }
-        editablePackage.setClassPaths(this,classPaths.toArray(new JavaFile[0]));
-    }
-    
-    
 }

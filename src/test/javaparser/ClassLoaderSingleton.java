@@ -18,6 +18,7 @@ package test.javaparser;
 
 import com.abiddarris.javaparser.ClassLoader;
 import java.io.File;
+import com.abiddarris.javaparser.FileClassLoader;
 
 public class ClassLoaderSingleton {
     
@@ -25,7 +26,9 @@ public class ClassLoaderSingleton {
     
     public static ClassLoader getInstance() {
         if(loader == null) {
-            loader = new ClassLoader(new File("/storage/emulated/0/AppProjects/Android-Java-Parser/src"));         
+            loader = new FileClassLoader(
+                ClassLoader.getSystemClassLoader(),
+                new File("/storage/emulated/0/AppProjects/Android-Java-Parser/src"));         
         }
         return loader;
     }

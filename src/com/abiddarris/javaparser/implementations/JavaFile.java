@@ -40,7 +40,6 @@ public class JavaFile extends File{
         return super.getName().replace(".java","");
     }
 
-    
     public void load() {
         StringBuilder builder;
         try {

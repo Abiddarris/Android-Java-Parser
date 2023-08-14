@@ -35,7 +35,7 @@ public class ClassEqualizer {
         assertEquals(javaClass.isInterface(), clazz.isInterface());
         assertEquals(javaClass.isAnnotation() , clazz.isAnnotation());
         assertEquals(javaClass.getName(), clazz.getName());
-        assertEquals(loader, clazz.getClassLoader());
+        assertTrue(loader == clazz.getClassLoader() || ClassLoader.getSystemClassLoader() == clazz.getClassLoader());
         assertEquals(javaClass.getTypeName(), clazz.getTypeName());
         equalsTypeVariables(javaClass.getTypeParameters(),clazz.getTypeParameters());
         assertEquals(javaClass.getSuperclass() != null ? javaClass.getSuperclass().getName() : null, 
