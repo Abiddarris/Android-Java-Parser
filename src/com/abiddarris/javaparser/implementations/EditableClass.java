@@ -93,6 +93,11 @@ public class EditableClass implements Class {
     }
 
     @Override
+    public boolean isPrimitive() {
+        return false;
+    }
+    
+    @Override
     public boolean isAnnotation() {
         return isAnnotation;
     }

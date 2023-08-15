@@ -33,6 +33,7 @@ public class ClassEqualizer {
     
     public static void equalsClass(ClassLoader loader, java.lang.Class javaClass, Class clazz) {
         assertEquals(javaClass.isInterface(), clazz.isInterface());
+        assertEquals(javaClass.isPrimitive(), clazz.isPrimitive());
         assertEquals(javaClass.isAnnotation() , clazz.isAnnotation());
         assertEquals(javaClass.getName(), clazz.getName());
         assertTrue(loader == clazz.getClassLoader() || ClassLoader.getSystemClassLoader() == clazz.getClassLoader());

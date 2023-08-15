@@ -42,6 +42,11 @@ public class ClassWrapper implements Class {
     }
 
     @Override
+    public boolean isPrimitive() {
+        return clazz.isPrimitive();
+    }
+
+    @Override
     public boolean isAnnotation() {
         return clazz.isAnnotation();
     }

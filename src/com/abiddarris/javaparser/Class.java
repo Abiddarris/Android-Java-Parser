@@ -46,9 +46,9 @@ public interface Class extends GenericDeclaration, Type, AnnotatedElement {
      */
     boolean isInterface();
 
-    /*public boolean isArray() {}
+    /*public boolean isArray() {}*/
 
-     public boolean isPrimitive() {}*/
+    boolean isPrimitive();
 
     boolean isAnnotation() 
 

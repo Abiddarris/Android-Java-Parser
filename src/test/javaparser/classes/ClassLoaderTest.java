@@ -11,13 +11,13 @@ import com.abiddarris.javaparser.Float;
 import com.abiddarris.javaparser.Integer;
 import com.abiddarris.javaparser.Long;
 import com.abiddarris.javaparser.Package;
+import com.abiddarris.javaparser.Short;
 import java.io.File;
 import org.junit.Test;
 import test.javaparser.ClassLoaderSingleton;
 
 import static org.junit.Assert.*;
 import static test.javaparser.ClassEqualizer.equalsClass;
-import com.abiddarris.javaparser.Short;
 
 public class ClassLoaderTest {
     
@@ -54,5 +54,7 @@ public class ClassLoaderTest {
         equalsClass(null, long.class, Long.TYPE);
         equalsClass(null, short.class, Short.TYPE);
     }
+    
+  
     
 }
