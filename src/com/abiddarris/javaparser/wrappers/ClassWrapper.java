@@ -84,7 +84,8 @@ public class ClassWrapper implements Class {
 
     @Override
     public Package getPackage() {
-        return new PackageWrapper(clazz.getPackage());
+        java.lang.Package package0 = clazz.getPackage();
+        return package0 != null ? new PackageWrapper(package0) : null;
     }
 
     @Override

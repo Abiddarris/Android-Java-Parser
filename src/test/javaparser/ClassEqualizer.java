@@ -98,6 +98,7 @@ public class ClassEqualizer {
 
     public static void equalsPackage(java.lang.Package _package, Package parserPackage){
         assertEquals(_package == null, parserPackage == null);
+        if(_package == null) return;
         assertEquals(_package.getName(),parserPackage.getName());
     }
 

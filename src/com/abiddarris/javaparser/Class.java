@@ -44,7 +44,6 @@ public interface Class extends GenericDeclaration, Type, AnnotatedElement {
 
      public boolean isAssignableFrom(java.lang.Class<?> cls) {}
      */
-
     boolean isInterface();
 
     /*public boolean isArray() {}
@@ -58,10 +57,8 @@ public interface Class extends GenericDeclaration, Type, AnnotatedElement {
      @androidx.annotation.RecentlyNonNull()*/
     String getName() 
 
-
     //@androidx.annotation.RecentlyNullable()
     ClassLoader getClassLoader();
-
 
     // @androidx.annotation.RecentlyNonNull()
     @Override
