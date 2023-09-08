@@ -50,6 +50,11 @@ public class GenericInterfaceTest {
 
         clazz = loader.loadClass("test.javaparser.generics.interfaces.SingleExtendsSingleGenericClass");
         equalsClass(loader,javaClass, clazz);
+        
+        javaClass = ExtendsAndImplements.class;         
+
+        clazz = loader.loadClass("test.javaparser.generics.interfaces.ExtendsAndImplements");
+        equalsClass(loader,javaClass, clazz);
     }
 
     @Test

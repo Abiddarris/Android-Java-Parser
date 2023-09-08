@@ -1,6 +1,6 @@
 package com.abiddarris.javaparser;
 
-import com.abiddarris.javaparser.implementations.EditableClass;
+import com.abiddarris.javaparser.implementations.EditableClassImpl;
 import com.abiddarris.javaparser.wrappers.ClassWrapper;
 import java.util.Map;
 import java.util.HashMap;
@@ -29,7 +29,7 @@ public class SystemClassLoader extends ClassLoader {
     }
 
     @Override
-    public EditableClass loadEditableClass(String name) {
+    public EditableClassImpl loadEditableClass(String name) {
         return null;
     }
       

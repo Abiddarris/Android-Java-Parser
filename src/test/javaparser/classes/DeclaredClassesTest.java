@@ -62,8 +62,7 @@ public class DeclaredClassesTest {
     @Test
     public void loadNonPublicClassHeader() throws ClassNotFoundException {      
         java.lang.Class javaClass = NonPublicClassHeader.class;
-        System.out.println(javaClass.getDeclaredClasses().length);
-       
+        
         Class clazz = loader.loadEditableClass("test.javaparser.classes.NonPublicClassHeader");
         equalsClass(loader,javaClass, clazz);        
     }

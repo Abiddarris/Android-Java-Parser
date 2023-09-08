@@ -24,15 +24,32 @@ import com.abiddarris.javaparser.java.ParameterizedType;
 import com.abiddarris.javaparser.java.Type;
 import com.abiddarris.javaparser.java.TypeVariable;
 import com.abiddarris.javaparser.java.WildcardType;
+import java.util.ArrayList;
+import java.util.List;
 
 import static junit.framework.Assert.*;
-import java.util.List;
-import java.util.ArrayList;
 
 public class ClassEqualizer {
     
     public static void equalsClass(ClassLoader loader, java.lang.Class javaClass, Class clazz) {
+        if(!clazz.isArray() && !clazz.isPrimitive()) {
+            try {               
+                Class loadClass = loader.loadClass("[L" + javaClass.getName() + ";");
+                equalsClassInternal(loader, java.lang.Class.forName("[L" + javaClass.getName() + ";"),
+                                    loadClass);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        equalsClassInternal(loader,javaClass,clazz);
+    }
+    
+    private static void equalsClassInternal(ClassLoader loader, java.lang.Class javaClass, Class clazz) {
+        assertEquals(javaClass != null, clazz != null);
+        if(javaClass == null) return;
+        
         assertEquals(javaClass.isInterface(), clazz.isInterface());
+        assertEquals(javaClass.isArray(), clazz.isArray());
         assertEquals(javaClass.isPrimitive(), clazz.isPrimitive());
         assertEquals(javaClass.isAnnotation() , clazz.isAnnotation());
         assertEquals(javaClass.getName(), clazz.getName());
@@ -49,14 +66,15 @@ public class ClassEqualizer {
         equalsPackage(javaClass.getPackage(),clazz.getPackage());
         equalsInterfaces(loader,javaClass.getInterfaces(),clazz.getInterfaces());   
         equalsTypes(javaClass.getGenericInterfaces(), clazz.getGenericInterfaces());
-
+        
+        equalsClassInternal(loader,javaClass.getComponentType(),clazz.getComponentType());
         assertEquals(javaClass.getSimpleName(), clazz.getSimpleName());
-        assertEqualsClasses(loader,javaClass.getDeclaredClasses(), clazz.getDeclaredClasses());
+        assertEqualsInternalClasses(loader,javaClass.getDeclaredClasses(), clazz.getDeclaredClasses());
        
         java.lang.reflect.Field[] fields = javaClass.getDeclaredFields();
         List<java.lang.reflect.Field> javaFields = new ArrayList<>();
         for(java.lang.reflect.Field field : fields) {
-            if (!(field.getName().contains("this$") || field.isSynthetic())) {
+            if (!(field.getName().contains("this$") || field.getName().contains("adrt$enabled")  || field.isSynthetic())) {
                 javaFields.add(field);               
             }
         }
@@ -76,10 +94,10 @@ public class ClassEqualizer {
         assertEquals(javaField.getName(),field.getName());
     }
 
-    public static void assertEqualsClasses(ClassLoader loader, java.lang.Class[] classes, Class[] parserClasses) {
+    public static void assertEqualsInternalClasses(ClassLoader loader, java.lang.Class[] classes, Class[] parserClasses) {
         assertEquals(classes.length, parserClasses.length);
         for(int i = 0; i < classes.length; i++) {
-            equalsClass(loader,classes[i],parserClasses[i]);
+            equalsClassInternal(loader,classes[i],parserClasses[i]);
         }
     }
 
@@ -93,7 +111,7 @@ public class ClassEqualizer {
     public static void equalsInterfaces(ClassLoader loader, java.lang.Class[] interfaces, Class[] parserInterfaces) {
         assertEquals(interfaces.length,parserInterfaces.length);
         for(int i = 0; i < interfaces.length; i++) {
-            equalsClass(loader,interfaces[i],parserInterfaces[i]);
+            equalsClassInternal(loader,interfaces[i],parserInterfaces[i]);
         }
     }
 
@@ -173,9 +191,10 @@ public class ClassEqualizer {
 
     public static Object getClassSimpleName(Object obj) {
         String name = obj.getClass().getSimpleName();
-        if(name.endsWith("Class") || name.startsWith("Class"))
+        if(name.endsWith("Class") || name.startsWith("Class") || name.endsWith("ClassImpl"))
             return name.replace("Wrapper", "")
-                .replace("Editable", "");
+                .replace("Editable", "")
+                .replace("Impl","");
 
         return name.replace("Wrapper", "Impl");      
     }

@@ -23,6 +23,8 @@ import com.abiddarris.javaparser.annotation.Annotation;
 import com.abiddarris.javaparser.java.Field;
 import com.abiddarris.javaparser.java.Type;
 import com.abiddarris.javaparser.java.TypeVariable;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.abiddarris.javaparser.wrappers.Wrappers.*;
 
@@ -30,6 +32,7 @@ public class ClassWrapper implements Class {
     
     private ClassLoader loader;
     private java.lang.Class clazz;
+    private Field[] fields;
 
     public ClassWrapper(ClassLoader loader, java.lang.Class clazz) {
         this.loader = loader;
@@ -41,6 +44,11 @@ public class ClassWrapper implements Class {
         return clazz.isInterface();
     }
 
+    @Override
+    public boolean isArray() {
+        return clazz.isArray();
+    }   
+    
     @Override
     public boolean isPrimitive() {
         return clazz.isPrimitive();
@@ -118,6 +126,11 @@ public class ClassWrapper implements Class {
     }
 
     @Override
+    public Class getComponentType() {
+        return clazz.getComponentType() != null ? new ClassWrapper(loader, clazz.getComponentType()) : null;
+    }
+
+    @Override
     public int getModifiers() {
         return clazz.getModifiers();
     }
@@ -144,12 +157,25 @@ public class ClassWrapper implements Class {
 
     @Override
     public Field[] getDeclaredFields() {
+        if(fields != null) return fields;
+        
         java.lang.reflect.Field[] javaFields = clazz.getDeclaredFields();
-        Field[] fields = new Field[javaFields.length];
+        javaFields = filterFields(javaFields);
+        fields = new Field[javaFields.length];
         for(int i = 0; i < javaFields.length; i++) {
             fields[i] = new FieldWrapper(this,javaFields[i]);
         }
         return fields;
+    }
+
+    private java.lang.reflect.Field[] filterFields(java.lang.reflect.Field[] fields) {     
+        List<java.lang.reflect.Field> javaFields = new ArrayList<>();
+        for(java.lang.reflect.Field field : fields) {
+            if (!(field.getName().contains("this$") || field.getName().contains("adrt$enabled")  || field.isSynthetic())) {
+                javaFields.add(field);               
+            }     
+        }     
+        return javaFields.toArray(new java.lang.reflect.Field[0]);
     }
     
     @Override

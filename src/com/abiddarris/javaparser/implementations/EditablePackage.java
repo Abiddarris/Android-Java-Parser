@@ -23,7 +23,7 @@ import java.util.List;
 
 public class EditablePackage extends Package {
     
-    private EditableClass[] classes;
+    private EditableClassImpl[] classes;
     private String name;
     private JavaFile[] javaFiles;
 
@@ -51,15 +51,15 @@ public class EditablePackage extends Package {
         return null;
     }
 
-    public EditableClass[] getClasses() {
+    public EditableClassImpl[] getClasses() {
         if(classes == null) {
-            List<EditableClass> classes = new ArrayList<>();           
+            List<EditableClassImpl> classes = new ArrayList<>();           
             for(int i = 0; i < javaFiles.length; i++) {
-                for(EditableClass clazz :  javaFiles[i].getClasses()) {
+                for(EditableClassImpl clazz :  javaFiles[i].getClasses()) {
                     classes.add(clazz);
                 }
             }
-            this.classes = classes.toArray(new EditableClass[0]);
+            this.classes = classes.toArray(new EditableClassImpl[0]);
         }
         return classes;
     }

@@ -18,7 +18,7 @@ package test.javaparser;
 
 import com.abiddarris.javaparser.Class;
 import com.abiddarris.javaparser.ClassLoader;
-import com.abiddarris.javaparser.implementations.EditableClass;
+import com.abiddarris.javaparser.implementations.EditableClassImpl;
 import java.io.IOException;
 import org.junit.Test;
 import test.javaparser.generics.ClassFile;
@@ -29,6 +29,7 @@ import test.javaparser.interfaces.SimpleImplements;
 
 import static test.javaparser.PrintHelper.*;
 import static test.javaparser.ClassEqualizer.equalsClass;
+import com.abiddarris.javaparser.implementations.EditableClass;
 
 public class JavaParserTest {
     

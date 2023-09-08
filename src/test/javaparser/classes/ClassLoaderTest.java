@@ -12,12 +12,15 @@ import com.abiddarris.javaparser.Integer;
 import com.abiddarris.javaparser.Long;
 import com.abiddarris.javaparser.Package;
 import com.abiddarris.javaparser.Short;
+import com.abiddarris.javaparser.implementations.EditableClass;
 import java.io.File;
 import org.junit.Test;
 import test.javaparser.ClassLoaderSingleton;
+import test.javaparser.generics.ClassFile;
 
 import static org.junit.Assert.*;
 import static test.javaparser.ClassEqualizer.equalsClass;
+import test.javaparser.ExtendingOutsidePackageFile;
 
 public class ClassLoaderTest {
     
@@ -55,6 +58,12 @@ public class ClassLoaderTest {
         equalsClass(null, short.class, Short.TYPE);
     }
     
-  
+    @Test
+    public void loadTwoDimensionalArrays() throws ClassNotFoundException {
+        System.out.println(ClassFile[][].class.getTypeName());
+        EditableClass editableClass = loader.loadEditableClass("[[Ltest.javaparser.generics.ClassFile;");
+        equalsClass(loader, ClassFile[][].class, editableClass);
+    }
     
+    class a<T extends Object> {}
 }

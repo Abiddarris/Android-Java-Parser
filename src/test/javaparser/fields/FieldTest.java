@@ -40,9 +40,9 @@ public class FieldTest {
     public void test() {
         java.lang.Class javaClass = InnerClassWithGeneric.ExtendsClass.class;    
         for(java.lang.reflect.Field field : javaClass.getDeclaredFields()) {
-            System.out.println(field.getDeclaringClass());
-            System.out.println(field.toString());
-            System.out.println(field.isSynthetic());
+//            System.out.println(field.getDeclaringClass());
+//            System.out.println(field.toString());
+//            System.out.println(field.isSynthetic());
         }
     }
 }

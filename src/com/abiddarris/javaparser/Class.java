@@ -46,7 +46,7 @@ public interface Class extends GenericDeclaration, Type, AnnotatedElement {
      */
     boolean isInterface();
 
-    /*public boolean isArray() {}*/
+    boolean isArray();
 
     boolean isPrimitive();
 
@@ -80,8 +80,8 @@ public interface Class extends GenericDeclaration, Type, AnnotatedElement {
     Type[] getGenericInterfaces();
 
      //@androidx.annotation.RecentlyNullable()
-     //public java.lang.Class<?> getComponentType() {}
-
+    Class getComponentType();
+    
     int getModifiers();
 
      /*@androidx.annotation.RecentlyNullable()

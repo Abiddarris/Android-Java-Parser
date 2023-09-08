@@ -32,9 +32,9 @@ import static com.abiddarris.javaparser.java.Modifier.*;
 class ClassInfo {
     
     private Bracket bracket;
-    private EditableClass parent;
+    private EditableClassImpl parent;
     private Class[] declaredClasses;       
-    private EditableClass editableClass;
+    private EditableClassImpl editableClass;
     private Field[] declaredFields;
     private List<Generic> generics = new ArrayList<>();   
     private Package _package;
@@ -56,7 +56,7 @@ class ClassInfo {
     String simpleName;
     String superClass;      
     
-    ClassInfo(EditableClass parent, String code, Bracket bracket, EditableClass editableClass) {    
+    ClassInfo(EditableClassImpl parent, String code, Bracket bracket, EditableClassImpl editableClass) {    
         this.parent = parent;
         this.editableClass = editableClass;
         this.code = code;
@@ -125,7 +125,8 @@ class ClassInfo {
                 }
             } else {            
                 extendInfo = classInfo.substring(superClassStart, superClassEnd);
-                classInfo = classInfo.substring(0,superClassStart);
+                String afterSuperClass = classInfo.substring(superClassEnd);            
+                classInfo = classInfo.substring(0,superClassStart) + afterSuperClass;
                 superClass = getClassName(extendInfo);              
             }                    
         }
@@ -177,7 +178,7 @@ class ClassInfo {
                 String info = code.substring(start,end).trim();
                 if(info.contains(" class ")) {
                     ClassLoader classLoader = editableClass.getClassLoader();
-                    Class clazz = new EditableClass(editableClass , editableClass.imports, classLoader, code, child);                
+                    Class clazz = new EditableClassImpl(editableClass , editableClass.imports, classLoader, code, child);                
                     actualClasses.add(clazz);
                 }             
 

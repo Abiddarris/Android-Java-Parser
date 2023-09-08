@@ -6,10 +6,10 @@ import com.abiddarris.javaparser.java.Field;
 
 public class EditableField implements Field {
     
-    private EditableClass editableClass;
+    private EditableClassImpl editableClass;
     private String name;
     
-    EditableField(EditableClass editableClass, String code) {
+    EditableField(EditableClassImpl editableClass, String code) {
         this.editableClass = editableClass;
         
         int assaignment = code.indexOf("=");

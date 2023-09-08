@@ -27,7 +27,7 @@ import java.util.List;
 public class JavaFile extends File{
     
     private ClassLoader loader;
-    private EditableClass[] classes;
+    private EditableClassImpl[] classes;
     
     public JavaFile(ClassLoader loader, String pathname) {
         super(pathname);
@@ -58,15 +58,15 @@ public class JavaFile extends File{
         Bracket parent = Bracket.parse(builder.toString(),"{","}");       
         List<Import> imports = handleImports(builder.substring(0,parent.children.get(0).start));
 
-        classes = new EditableClass[parent.children.size()];       
+        classes = new EditableClassImpl[parent.children.size()];       
         for(int i = 0; i < classes.length; i++) {
             Bracket bracket = parent.children.get(i);
-            EditableClass clazz = new EditableClass(null,imports,loader,builder.toString(),bracket);
+            EditableClassImpl clazz = new EditableClassImpl(null,imports,loader,builder.toString(),bracket);
             classes[i] = clazz;
         }     
     }
     
-    public EditableClass[] getClasses() {
+    public EditableClassImpl[] getClasses() {
         if(classes == null) {
             load();
         }

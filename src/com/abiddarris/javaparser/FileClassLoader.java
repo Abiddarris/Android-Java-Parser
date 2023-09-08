@@ -1,6 +1,8 @@
 package com.abiddarris.javaparser;
 
+import com.abiddarris.javaparser.implementations.ArrayClass;
 import com.abiddarris.javaparser.implementations.EditableClass;
+import com.abiddarris.javaparser.implementations.EditableClassImpl;
 import com.abiddarris.javaparser.implementations.EditablePackage;
 import com.abiddarris.javaparser.implementations.JavaFile;
 import com.abiddarris.javaparser.java.Modifier;
@@ -8,7 +10,6 @@ import com.abiddarris.javaparser.wrappers.ClassWrapper;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
 
 public class FileClassLoader extends ClassLoader {
     
@@ -42,6 +43,10 @@ public class FileClassLoader extends ClassLoader {
 
     @Override
     public EditableClass loadEditableClass(String name) {
+        if(name.startsWith("[") && name.endsWith(";")) {
+            return loadArrayClass(name);
+        }
+        
         String innerClassPath = null;
         int dollarSign = name.indexOf("$");
         if(dollarSign != -1) {
@@ -58,10 +63,10 @@ public class FileClassLoader extends ClassLoader {
 
         EditablePackage editablePackage = getPackage(packageName);
         JavaFile javaFile = editablePackage.getJavaFile(name);
-        EditableClass clazz = null;
+        EditableClassImpl clazz = null;
         if(javaFile == null) {
-            EditableClass[] classes = editablePackage.getClasses();
-            for(EditableClass editableClass : classes) {
+            EditableClassImpl[] classes = editablePackage.getClasses();
+            for(EditableClassImpl editableClass : classes) {
                 if(editableClass.getSimpleName().equals(name)) {
                     clazz = editableClass;
                     break;
@@ -69,8 +74,8 @@ public class FileClassLoader extends ClassLoader {
             }
             if(clazz == null) throw new NullPointerException();
         } else {
-            EditableClass[] classes = javaFile.getClasses();
-            for(EditableClass _clazz : classes) {
+            EditableClassImpl[] classes = javaFile.getClasses();
+            for(EditableClassImpl _clazz : classes) {
                 if(Modifier.isPublic(_clazz.getModifiers())) {
                     clazz = _clazz;
                     break;
@@ -82,10 +87,24 @@ public class FileClassLoader extends ClassLoader {
         }
 
         if(innerClassPath != null) {
-            return (EditableClass) clazz.getInnerClass(innerClassPath);
+            return (EditableClassImpl) clazz.getInnerClass(innerClassPath);
         }
 
         return clazz;    
+    }
+
+    private EditableClass loadArrayClass(String name) {      
+        name = name.substring(1);
+        EditableClass component = null;
+        if(name.startsWith("L")) {
+            name = name.substring(1,name.length() - 1);
+            component = loadEditableClass(name);            
+        } else if(name.startsWith("[")) {
+            component = loadArrayClass(name);
+        }
+        
+        ArrayClass a = new ArrayClass(component);
+        return a;
     }
 
     @Override
