@@ -39,10 +39,10 @@ public class Modifier {
     public static final int STRICT = 2048;
 
 //    public static final int SYNCHRONIZED = 32;
-//
-//    public static final int TRANSIENT = 128;
-//
-//    public static final int VOLATILE = 64;
+
+    public static final int TRANSIENT = 128;
+
+    public static final int VOLATILE = 64;
 
     public static boolean isPublic(int mod) {
         return (mod & PUBLIC) != 0;
@@ -67,10 +67,14 @@ public class Modifier {
     //public static boolean isSynchronized(int mod) {
   //      return (mod & SYNCHRONIZED) != 0;
    // }
-//
-//    public static boolean isVolatile(int mod) {}
-//
-//    public static boolean isTransient(int mod) {}
+
+    public static boolean isVolatile(int mod) {
+        return (mod & VOLATILE) != 0;
+    }
+
+    public static boolean isTransient(int mod) {
+        return (mod & TRANSIENT) != 0;
+    }
 //
 //    public static boolean isNative(int mod) {}
 //
@@ -98,13 +102,16 @@ public class Modifier {
             builder.append("static ");          
         //if(isSynchronized(mod)) 
       //      builder.append("synchronized ");
+        if(isVolatile(mod)) 
+            builder.append("volatile ");
+        if(isTransient(mod))
+            builder.append("transient ");
         if(isStrict(mod))    
             builder.append("strictfp ");                
         if(isFinal(mod)) 
             builder.append("final ");               
         if(isAbstract(mod))                    
-            builder.append("abstract ");
-            
+            builder.append("abstract ");            
         if(isInterface(mod)) 
             builder.append("interface ");
         

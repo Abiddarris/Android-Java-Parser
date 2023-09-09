@@ -7,6 +7,7 @@ import com.abiddarris.javaparser.java.Field;
 public class EditableField implements Field {
     
     private EditableClassImpl editableClass;
+    private int modifier;
     private String name;
     
     EditableField(EditableClassImpl editableClass, String code) {
@@ -23,9 +24,17 @@ public class EditableField implements Field {
             nameStart = name.lastIndexOf(" ");
             name = name.substring(nameStart).trim();           
         } 
-        code = code.substring(0,nameStart); 
+        code = code.substring(0,nameStart).trim();
+            
+        int startType = code.lastIndexOf(" ");
+        startType = Math.max(startType,0);
         
-        System.out.println(code);
+        String type = code.substring(startType).trim();
+        code = code.substring(0,startType) + " ";
+        System.out.println(type);
+        
+        modifier = HelperClass.formatModifier(code);
+        
         ClassLoader a;
     }
 
@@ -48,7 +57,7 @@ public class EditableField implements Field {
 
     @Override
     public int getModifiers() {
-        return 0;
+        return modifier;
     }
 
     @Override

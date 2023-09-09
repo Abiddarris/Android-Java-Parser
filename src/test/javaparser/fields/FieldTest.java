@@ -18,14 +18,13 @@ package test.javaparser.fields;
 
 import com.abiddarris.javaparser.Class;
 import com.abiddarris.javaparser.ClassLoader;
-import org.junit.Test;
-import test.javaparser.ClassLoaderSingleton;
-import test.javaparser.generics.superclasses.InnerClassWithGeneric;
-
-import static test.javaparser.ClassEqualizer.equalsClass;
 import com.abiddarris.javaparser.NoSuchFieldException;
-import static org.junit.Assert.*;
+import org.junit.Test;
 import org.junit.function.ThrowingRunnable;
+import test.javaparser.ClassLoaderSingleton;
+
+import static org.junit.Assert.*;
+import static test.javaparser.ClassEqualizer.equalsClass;
 
 public class FieldTest {
 

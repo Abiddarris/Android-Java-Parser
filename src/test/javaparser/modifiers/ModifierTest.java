@@ -29,8 +29,11 @@ import static com.abiddarris.javaparser.java.Modifier.PRIVATE;
 import static com.abiddarris.javaparser.java.Modifier.PUBLIC;
 import static com.abiddarris.javaparser.java.Modifier.STATIC;
 import static com.abiddarris.javaparser.java.Modifier.STRICT;
+import static com.abiddarris.javaparser.java.Modifier.TRANSIENT;
+import static com.abiddarris.javaparser.java.Modifier.VOLATILE;
 import static test.javaparser.ClassEqualizer.equalsClass;
 import static org.junit.Assert.assertEquals;
+import com.abiddarris.javaparser.NoSuchFieldException;
 
 public class ModifierTest {
    
@@ -119,8 +122,18 @@ public class ModifierTest {
     }
     
     @Test
-    public void defaultField() {
-        
+    public void transientField() throws ClassNotFoundException, NoSuchFieldException {
+        java.lang.Class javaClass = java.lang.Class.forName("test.javaparser.modifiers.FieldClass");   
+
+        Class clazz = loader.loadEditableClass("test.javaparser.modifiers.FieldClass");
+        equalsClass(loader,javaClass, clazz); 
+        assertEquals(TRANSIENT, clazz.getDeclaredField("data").getModifiers());      
+    }
+    
+    @Test
+    public void volatileField() throws ClassNotFoundException, NoSuchFieldException {
+        Class clazz = loader.loadEditableClass("test.javaparser.modifiers.FieldClass");
+        assertEquals(VOLATILE, clazz.getDeclaredField("lock").getModifiers());      
     }
     
     public static class A{}

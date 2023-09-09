@@ -15,6 +15,8 @@ public class HelperClass {
         if (classInfo.contains("static ")) modifiers |= STATIC;    
         if (classInfo.contains("protected ")) modifiers |= PROTECTED;    
         if (classInfo.contains("private ")) modifiers |= PRIVATE;
+        if (classInfo.contains("transient ")) modifiers |= TRANSIENT;
+        if (classInfo.contains("volatile ")) modifiers |= VOLATILE;
         
         return modifiers;
     }

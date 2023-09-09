@@ -3,6 +3,7 @@ package com.abiddarris.javaparser.java;
 import com.abiddarris.javaparser.Class;
 
 public abstract interface Member {
+    
     /*public static final int DECLARED = 1;
 
     public static final int PUBLIC = 0;
