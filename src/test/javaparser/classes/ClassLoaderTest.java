@@ -20,7 +20,6 @@ import test.javaparser.generics.ClassFile;
 
 import static org.junit.Assert.*;
 import static test.javaparser.ClassEqualizer.equalsClass;
-import test.javaparser.ExtendingOutsidePackageFile;
 
 public class ClassLoaderTest {
     
@@ -59,10 +58,15 @@ public class ClassLoaderTest {
     }
     
     @Test
-    public void loadTwoDimensionalArrays() throws ClassNotFoundException {
-        System.out.println(ClassFile[][].class.getTypeName());
+    public void loadTwoDimensionalArrays() throws ClassNotFoundException {      
         EditableClass editableClass = loader.loadEditableClass("[[Ltest.javaparser.generics.ClassFile;");
         equalsClass(loader, ClassFile[][].class, editableClass);
+    }
+    
+    @Test
+    public void loadNonEditableClassArray() {
+       Class clazz = loader.loadClass("[Ljava.lang.String;");
+        equalsClass(loader, String[].class, clazz);
     }
     
     class a<T extends Object> {}

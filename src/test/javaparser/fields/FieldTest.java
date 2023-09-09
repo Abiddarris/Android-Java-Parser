@@ -23,6 +23,9 @@ import test.javaparser.ClassLoaderSingleton;
 import test.javaparser.generics.superclasses.InnerClassWithGeneric;
 
 import static test.javaparser.ClassEqualizer.equalsClass;
+import com.abiddarris.javaparser.NoSuchFieldException;
+import static org.junit.Assert.*;
+import org.junit.function.ThrowingRunnable;
 
 public class FieldTest {
 
@@ -35,10 +38,28 @@ public class FieldTest {
         Class clazz = loader.loadClass("test.javaparser.fields.FieldClass");
         equalsClass(loader,javaClass, clazz);             
     }
+    
+    @Test
+    public void getField() throws NoSuchFieldException {
+        Class clazz = loader.loadClass("test.javaparser.fields.FieldClass");
+        clazz.getDeclaredField("a");
+    }   
+    
+    @Test
+    public void noSuchFieldTest() {
+        assertThrows(NoSuchFieldException.class, new ThrowingRunnable() {
+                @Override
+                public void run() throws Throwable {
+                    Class clazz = loader.loadClass("test.javaparser.fields.FieldClass");
+                    clazz.getDeclaredField("bKaa");
+                }                          
+        });
+    }
 
     @Test
-    public void test() {
-        java.lang.Class javaClass = InnerClassWithGeneric.ExtendsClass.class;    
+    public void test() throws NoSuchFieldException, java.lang.NoSuchFieldException {
+        java.lang.Class javaClass = FieldClass.class;    
+        System.out.println(javaClass.getDeclaredField("a"));
         for(java.lang.reflect.Field field : javaClass.getDeclaredFields()) {
 //            System.out.println(field.getDeclaringClass());
 //            System.out.println(field.toString());

@@ -13,7 +13,7 @@ public abstract interface Member {
     //@androidx.annotation.RecentlyNonNull()
     String getName();
 
-    //int getModifiers();
+    int getModifiers();
 
     /*public abstract boolean isSynthetic();*/
 

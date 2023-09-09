@@ -28,7 +28,7 @@ import java.util.List;
 
 import static com.abiddarris.javaparser.wrappers.Wrappers.*;
 
-public class ClassWrapper implements Class {
+public class ClassWrapper extends Class {
     
     private ClassLoader loader;
     private java.lang.Class clazz;

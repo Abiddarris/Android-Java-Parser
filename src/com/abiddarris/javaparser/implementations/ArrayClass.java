@@ -10,7 +10,7 @@ import com.abiddarris.javaparser.java.TypeVariable;
 import com.abiddarris.javaparser.wrappers.ClassWrapper;
 import java.io.Serializable;
 
-public class ArrayClass implements EditableClass {
+public class ArrayClass extends EditableClass {
 
     private EditableClass componentType;
     private Class[] interfaces;

@@ -35,9 +35,18 @@ public class Main {
     int a;
     
     public static void main(String[] args) {                
-        System.out.println(run(JavaParserTest.class, ModifierTest.class, 
-            DeclaredClassesTest.class, GenericInterfaceTest.class, GenericSuperclassTest.class, 
-            GenericTest.class, PackageTest.class, FieldTest.class, AnnotationsTest.class, ClassLoaderTest.class));
+        System.out.println(run(
+            JavaParserTest.class,
+            ModifierTest.class, 
+            DeclaredClassesTest.class, 
+            GenericInterfaceTest.class, 
+            GenericSuperclassTest.class, 
+            GenericTest.class,
+            PackageTest.class,
+            FieldTest.class,
+            AnnotationsTest.class,
+            ClassLoaderTest.class
+        ));
     }
     
     public static final String run(Class... classes){

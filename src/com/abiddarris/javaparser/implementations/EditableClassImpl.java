@@ -25,7 +25,7 @@ import com.abiddarris.javaparser.java.Type;
 import com.abiddarris.javaparser.java.TypeVariable;
 import java.util.List;
 
-public class EditableClassImpl implements EditableClass {
+public class EditableClassImpl extends EditableClass {
     
     private boolean isAnnotation;
     private boolean isInterface;   

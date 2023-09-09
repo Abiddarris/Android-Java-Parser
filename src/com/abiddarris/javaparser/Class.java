@@ -22,7 +22,7 @@ import com.abiddarris.javaparser.java.GenericDeclaration;
 import com.abiddarris.javaparser.java.Type;
 import com.abiddarris.javaparser.java.TypeVariable;
 
-public interface Class extends GenericDeclaration, Type, AnnotatedElement {
+public abstract class Class implements GenericDeclaration, Type, AnnotatedElement {
 
     /*
      @androidx.annotation.RecentlyNonNull()
@@ -44,45 +44,45 @@ public interface Class extends GenericDeclaration, Type, AnnotatedElement {
 
      public boolean isAssignableFrom(java.lang.Class<?> cls) {}
      */
-    boolean isInterface();
+    public abstract boolean isInterface();
 
-    boolean isArray();
+    public abstract boolean isArray();
 
-    boolean isPrimitive();
+    public abstract boolean isPrimitive();
 
-    boolean isAnnotation() 
+    public abstract boolean isAnnotation() 
 
     /*public boolean isSynthetic() {}
 
      @androidx.annotation.RecentlyNonNull()*/
-    String getName() 
+    public abstract String getName() 
 
     //@androidx.annotation.RecentlyNullable()
-    ClassLoader getClassLoader();
+    public abstract ClassLoader getClassLoader();
 
     // @androidx.annotation.RecentlyNonNull()
     @Override
-    TypeVariable<Class>[] getTypeParameters() 
+    public abstract TypeVariable<Class>[] getTypeParameters() 
 
      //@androidx.annotation.RecentlyNullable()
-    Class getSuperclass();
+    public abstract Class getSuperclass();
 
     // @androidx.annotation.RecentlyNullable()
-    Type getGenericSuperclass();
+    public abstract Type getGenericSuperclass();
 
    //  @androidx.annotation.RecentlyNullable()
-    Package getPackage()
+    public abstract Package getPackage()
 
    // @androidx.annotation.RecentlyNonNull()
-    Class[] getInterfaces();
+    public abstract Class[] getInterfaces();
 
      //@androidx.annotation.RecentlyNonNull()
-    Type[] getGenericInterfaces();
+    public abstract Type[] getGenericInterfaces();
 
      //@androidx.annotation.RecentlyNullable()
-    Class getComponentType();
+    public abstract Class getComponentType();
     
-    int getModifiers();
+    public abstract int getModifiers();
 
      /*@androidx.annotation.RecentlyNullable()
      public java.lang.Object[] getSigners() {}
@@ -100,11 +100,11 @@ public interface Class extends GenericDeclaration, Type, AnnotatedElement {
      public native java.lang.Class<?> getEnclosingClass();*/
 
      //@androidx.annotation.RecentlyNonNull()
-     String getSimpleName();
+     public abstract String getSimpleName();
 
      //@androidx.annotation.RecentlyNonNull()
      @Override
-     String getTypeName();
+     public abstract String getTypeName();
 
     /* @androidx.annotation.RecentlyNullable()
      public java.lang.String getCanonicalName() {}
@@ -137,10 +137,10 @@ public interface Class extends GenericDeclaration, Type, AnnotatedElement {
      public transient java.lang.reflect.Constructor<T> getConstructor(java.lang.Class<?>...parameterTypes) throws java.lang.NoSuchMethodException, java.lang.SecurityException {}
 
      @androidx.annotation.RecentlyNonNull()*/
-     Class[] getDeclaredClasses();
+     public abstract Class[] getDeclaredClasses();
 
      //@androidx.annotation.RecentlyNonNull()
-     Field[] getDeclaredFields();
+     public abstract Field[] getDeclaredFields();
 
      /*@androidx.annotation.RecentlyNonNull()
      public java.lang.reflect.Method[] getDeclaredMethods() throws java.lang.SecurityException {}
@@ -148,10 +148,17 @@ public interface Class extends GenericDeclaration, Type, AnnotatedElement {
      @androidx.annotation.RecentlyNonNull()
      public java.lang.reflect.Constructor<?>[] getDeclaredConstructors() throws java.lang.SecurityException {}
 
-     @androidx.annotation.RecentlyNonNull()
-     public native java.lang.reflect.Field getDeclaredField(java.lang.String p1) throws java.lang.NoSuchFieldException;
+     @androidx.annotation.RecentlyNonNull()*/  
+     public Field getDeclaredField(String name) throws NoSuchFieldException {
+         for(Field field : getDeclaredFields()) {
+             if(field.getName().equals(name)) {
+                 return field;
+             }
+         }
+         throw new NoSuchFieldException(name);
+     }
 
-     @androidx.annotation.RecentlyNonNull()
+     /*@androidx.annotation.RecentlyNonNull()
      public transient java.lang.reflect.Method getDeclaredMethod(java.lang.String name, java.lang.Class<?>...parameterTypes) throws java.lang.NoSuchMethodException, java.lang.SecurityException {}
 
      @androidx.annotation.RecentlyNonNull()

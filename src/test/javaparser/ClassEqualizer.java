@@ -91,7 +91,7 @@ public class ClassEqualizer {
     
     public static void equalsField(java.lang.reflect.Field javaField, Field field) {
         assertEquals(javaField.getDeclaringClass().getName(), field.getDeclaringClass().getName());
-        assertEquals(javaField.getName(),field.getName());
+        assertEquals(javaField.getName(),field.getName());       
     }
 
     public static void assertEqualsInternalClasses(ClassLoader loader, java.lang.Class[] classes, Class[] parserClasses) {

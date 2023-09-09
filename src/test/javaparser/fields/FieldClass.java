@@ -19,5 +19,6 @@ public class FieldClass {
     
     Object a;
     int b = 10;
+    Object[] c;
     
 }

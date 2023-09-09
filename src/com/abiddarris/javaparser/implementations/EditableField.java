@@ -13,16 +13,27 @@ public class EditableField implements Field {
         this.editableClass = editableClass;
         
         int assaignment = code.indexOf("=");
+        int nameStart;
         if(assaignment == -1) {
-            name = code.substring(code.lastIndexOf(" "))
-                .trim();
-        } else {
-            name = code.substring(0,assaignment)
-                .trim();
-            name = name.substring(name.lastIndexOf(" "))
-                .trim();
-        }  
+            nameStart = code.lastIndexOf(" ");
+            name = code.substring(nameStart)
+                .trim();          
+        } else {          
+            name = trimRight(code.substring(0,assaignment));                     
+            nameStart = name.lastIndexOf(" ");
+            name = name.substring(nameStart).trim();           
+        } 
+        code = code.substring(0,nameStart); 
+        
+        System.out.println(code);
         ClassLoader a;
+    }
+
+    private String trimRight(String string) {      
+        while(string.endsWith(" ")){
+            string = string.substring(0,string.length() - 1);
+        }
+        return string;
     }
 
     @Override
@@ -33,6 +44,11 @@ public class EditableField implements Field {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int getModifiers() {
+        return 0;
     }
 
     @Override

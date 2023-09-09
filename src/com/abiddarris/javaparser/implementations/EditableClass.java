@@ -2,10 +2,10 @@ package com.abiddarris.javaparser.implementations;
 
 import com.abiddarris.javaparser.Class;
 
-public interface EditableClass extends Class {
+public abstract class EditableClass extends Class {
    
-    Import[] getImports();
+    public abstract Import[] getImports();
 
-    Class getInnerClass(String name);
+    public abstract Class getInnerClass(String name);
     
 }

@@ -10,7 +10,7 @@ public interface Field extends AccessibleObject, Member {
    //@androidx.annotation.RecentlyNonNull()
     String getName();
 
-    //int getModifiers();
+    int getModifiers();
 
     /*public boolean isEnumConstant() {}
 

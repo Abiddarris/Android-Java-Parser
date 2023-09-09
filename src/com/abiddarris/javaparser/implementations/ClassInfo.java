@@ -150,14 +150,7 @@ class ClassInfo {
 
         classInfo = classInfo.replace(simpleName,"");
 
-        if(classInfo.contains("public ")) modifiers |= PUBLIC;      
-        if(classInfo.contains("abstract ")) modifiers |= ABSTRACT;    
-        if(classInfo.contains("final ")) modifiers |= FINAL; 
-        if(classInfo.contains("interface ")) modifiers |= INTERFACE;
-        if(classInfo.contains("strictfp ")) modifiers |= STRICT;
-        if(classInfo.contains("static ")) modifiers |= STATIC;    
-        if(classInfo.contains("protected ")) modifiers |= PROTECTED;    
-        if(classInfo.contains("private ")) modifiers |= PRIVATE;    
+        modifiers = HelperClass.formatModifier(classInfo);    
         
         if(isAnnotation) modifiers |= ANNOTATION;
 
@@ -166,7 +159,7 @@ class ClassInfo {
         else
             name = editableClass.getPackage().getName() + "." + simpleName;                        
     }
-    
+  
     Class[] getDeclaredClasses() {
         if(declaredClasses == null) {
             Bracket lastChild = null;
@@ -215,7 +208,7 @@ class ClassInfo {
                 int lastSemicolon = tempCode.lastIndexOf(";");
                 int lastCurlyBracketEnd = tempCode.lastIndexOf("}");
                 
-                int start = Math.max(lastSemicolon,lastCurlyBracketEnd);
+                int start = Math.max(lastSemicolon,lastCurlyBracketEnd) + 1;
                 start = Math.max(start,0);
                 
                 Field field = new EditableField(editableClass,code.substring(start,semicolon));

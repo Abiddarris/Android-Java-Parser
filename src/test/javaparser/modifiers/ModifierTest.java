@@ -118,6 +118,11 @@ public class ModifierTest {
         assertEquals(STATIC | PRIVATE, clazz.getModifiers());         
     }
     
+    @Test
+    public void defaultField() {
+        
+    }
+    
     public static class A{}
 
     protected static class B {}

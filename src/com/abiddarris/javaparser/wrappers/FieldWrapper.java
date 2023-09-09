@@ -23,7 +23,12 @@ public class FieldWrapper implements Field {
     @Override
     public String getName() {
         return field.getName();
-    }  
+    }
+
+    @Override
+    public int getModifiers() {
+        return field.getModifiers();
+    }
        
     @Override
     public Annotation[] getDeclaredAnnotations() {
